@@ -1,0 +1,28 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body{
+  font-family: 'Roboto', 'sans-serif';
+}
+
+.header{
+  height: 69px;
+  width: 100%;
+
+  background-color: #EC362D;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand{
+  font-weight: bold;
+  font-size: 37px;
+  line-height: 43px;
+
+  color: #FFFFFF;
+}
