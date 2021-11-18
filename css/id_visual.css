@@ -26,3 +26,65 @@ body{
 
   color: #FFFFFF;
 }
+
+.banner-quizz{
+width: 100vw;
+min-height: 142px;
+max-height: 227px;
+
+background-color: black;
+
+overflow: hidden;
+
+position: relative;
+
+display: flex;
+
+justify-content: center;
+align-items: center;
+
+}
+
+.banner-quizz h1{
+font-weight: normal;
+font-size: 19px;
+line-height: 22px;
+
+color: #FFFFFF;
+
+position: absolute;
+z-index: 10;
+text-align: center;
+}
+
+.banner-quizz img{
+width: 100%;
+
+opacity: 0.4;
+}
+
+.question-card{
+min-width: 375px;
+max-width: 760px;
+
+display: flex;
+flex-wrap: wrap;
+
+}
+
+.answer-card{
+width: 163px;
+
+}
+
+.answer-card img{
+  width: 163px;
+  height: 113px;
+  object-fit: cover;
+}
+
+.answer-card h1{
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 15px;
+}
