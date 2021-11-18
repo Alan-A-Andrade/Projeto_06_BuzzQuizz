@@ -5,6 +5,8 @@
 
 body{
   font-family: 'Roboto', 'sans-serif';
+
+  background-color: #FAFAFA;
 }
 
 .header{
@@ -25,6 +27,129 @@ body{
   line-height: 43px;
 
   color: #FFFFFF;
+}
+
+
+.container{
+  margin-top: 77px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container .gerenal-content{
+  width: 1051px;
+
+  padding-bottom: 211px;
+}
+
+.container .user-quizzes{
+  width: 100%;
+  height: 181px;
+
+  margin-bottom: 77px;
+
+  border: 1px dashed #D5D5D5;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container .user-quizzes .user-quizzes-create-title{
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+
+  color: #B9B9B9;
+
+  margin-bottom: 30px;
+}
+
+.container .user-quizzes .user-quizzes-create-button{
+  width: 151px;
+  height: 40px;
+
+  background-color: #FAFAFA;
+
+  border: 1px dashed #EC362D;
+  border-radius: 50px;
+
+  font-size: 21px;
+  line-height: 25px;
+  color: #EC362D;
+}
+
+.all-quizzes-listed{
+  width: 1100px;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.all-quizzes-quizz{
+  width: 340px;
+  height: 181px;
+
+  margin-right: 15px;
+  margin-bottom: 12px;
+
+  position: relative;
+}
+
+.all-quizzes-quizz-degrade{
+  width: 340px;
+  height: 181px;
+
+  position: absolute;
+  top: 0;
+
+  border-radius: 5px;
+
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
+}
+
+.all-quizzes-title{
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+
+  margin-bottom: 12px;
+
+  color: #000000;
+}
+
+.all-quizzes-quizz-bg{
+  width: 340px;
+  height: 181px;
+
+  border-radius: 5px;
+}
+
+.all-quizzes-quizz-title{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  height: 54px;
+  width: 301px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin-left: 17px;
+  margin-bottom: 5px;
+
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 22px;
+  color: #FFFFFF;
+
 }
 
 .banner-quizz{
