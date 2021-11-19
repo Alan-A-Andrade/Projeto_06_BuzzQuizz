@@ -160,6 +160,7 @@ body{
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
+  gap: 42px;
 
 }
 
