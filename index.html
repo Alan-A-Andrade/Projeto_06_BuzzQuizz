@@ -16,6 +16,8 @@
 
   <!-- favicon -->
   <link rel="icon" sizes="192x192" href="./assets/img/favicon.png">
+
+  <title>BuzzQuizz</title>
 </head>
 <body>
   <header class="header">
@@ -25,11 +27,51 @@
   <main class="container">
     <div class="gerenal-content">
       <section class="user-quizzes">
-        <!--user-quizz-create-title-->
-        <p class="user-quizzes-create-title">Você não criou nenhum <br> quizz ainda :(</p>
+        <div class="user-quizzes-none">
+          <!--user-quizz-create-title-->
+          <p class="user-quizzes-create-title">Você não criou nenhum <br> quizz ainda :(</p>
 
-        <!--user-quizz-create-button-->
-        <button class="user-quizzes-create-button">Criar Quizz</button>
+          <!--user-quizz-create-button-->
+          <button class="user-quizzes-create-button" onclick="createQuizz()">Criar Quizz</button>
+        </div><!--user-quizzes-none-->
+
+        <div class="user-quizzes-listed hidden">
+          <div class="user-quizzes-listed-header">
+            <!--user-quizzes-listed-header-title-->
+            <h2 class="user-quizzes-listed-header-title">Seus Quizzes</h2>
+
+            <!--user-quizzes-listed-header-button-->
+            <button class="user-quizzes-listed-header-button" onclick="createQuizz()">+</button>
+          </div><!--user-quizzes-listed-header-->
+          
+          <div class="user-quizzes-listed-all">
+            <div class="user-quizzes-listed-all-quizz">
+              <!--user-quizzes-listed-all-quizz-bg-->
+              <img class="user-quizzes-listed-all-quizz-bg" src="./assets/img/bg-harry-potter.png">
+        
+              <!--user-quizzes-listed-all-quizz-degrade-->
+              <div class="user-quizzes-listed-all-quizz-degrade"></div>
+        
+              <!--user-quizzes-listed-all-quizz-title-->
+              <div class="user-quizzes-listed-all-quizz-title">
+                <p>O quão Potterhead é você?</p>
+              </div>
+            </div><!--user-quizzes-listed-all-quizz-->
+            
+            <div class="user-quizzes-listed-all-quizz">
+              <!--user-quizzes-listed-all-quizz-bg-->
+              <img class="user-quizzes-listed-all-quizz-bg" src="./assets/img/bg-bbb.png">
+        
+              <!--user-quizzes-listed-all-quizz-degrade-->
+              <div class="user-quizzes-listed-all-quizz-degrade"></div>
+        
+              <!--user-quizzes-listed-all-quizz-title-->
+              <div class="user-quizzes-listed-all-quizz-title">
+                <p>É ex-BBB ou ex-De férias com o Ex?</p>
+              </div>
+            </div><!--user-quizzes-listed-all-quizz--> 
+          </div><!--user-quizzes-listed-all-->
+        </div><!--"user-quizzes-listed-->
       </section><!--user-quizz-->
 
       <section class="all-quizzes">
