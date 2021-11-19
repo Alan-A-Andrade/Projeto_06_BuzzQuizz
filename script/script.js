@@ -183,37 +183,36 @@ function awardScreen() {
     }
 
 
-    pageContainer.querySelector(".quizz-conteiner").innerHTML +=
-        `     <div class="question-card award-screen" data-identifier="question">
-<div style="background-color: #EC362D" class="question-title">
-<h1>${answerPercentage}% de acerto: ${loadedQuizzData.data.levels[indexLevel].title}</h1>
-</div>
-<div class="img-text-box">
-<img src="${loadedQuizzData.data.levels[indexLevel].image}" alt=""/>
-<h1>${loadedQuizzData.data.levels[indexLevel].text}</h1>
-</div>
-</div>
+    pageContainer.querySelector(".quizz-conteiner").innerHTML += `
+        <div class="question-card award-screen" data-identifier="question" data-identifier="quizz-result">
+        <div style="background-color: #EC362D" class="question-title">
+        <h1>${answerPercentage}% de acerto: ${loadedQuizzData.data.levels[indexLevel].title}</h1>
+        </div>
+        <div class="img-text-box">
+        <img src="${loadedQuizzData.data.levels[indexLevel].image}" alt=""/>
+        <h1>${loadedQuizzData.data.levels[indexLevel].text}</h1>
+        </div>
+        </div>
 
-<nav class="nav-quizz">
-<button onclick="resetQuizz()">Reiniciar Quizz</button>
-<h1 onclick="backHomePage()">Voltar para home</h1>
-</nav>
-
-`
+        <nav class="nav-quizz">
+        <button onclick="resetQuizz()">Reiniciar Quizz</button>
+        <h1 onclick="backHomePage()">Voltar para home</h1>
+        </nav> `
 
 }
 
 function resetQuizz() {
 
-    correctAnswers = 0;
-    answeredQuestions = 0;
+    correctAnswers, answeredQuestions = 0;
+    loadedQuizzData = null;
+
 
     getQuizzByID(loadedQuizzID)
 }
 
 function backHomePage() {
-    correctAnswers = 0;
-    answeredQuestions = 0;
+    correctAnswers, answeredQuestions = 0;
+    loadedQuizzData, loadedQuizzID = null;
 
     document.querySelector("body").innerHTML = frontPage;
     listQuizzesRequest();
