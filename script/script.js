@@ -1,4 +1,4 @@
-setInterval(listQuizzesRequest, 1000);
+let listQuizzesInterval = setInterval(listQuizzesRequest, 1000);
 function listQuizzesRequest() {
     promisseGetQuizzes = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     promisseGetQuizzes.then(listQuizzes);
@@ -28,6 +28,8 @@ function listQuizzes(answerListQuizzes) {
 }
 
 function getQuizzByID(element) {
+
+    clearInterval(listQuizzesInterval);
 
     let pageContainer = document.querySelector(".container")
 
@@ -68,14 +70,27 @@ function getQuizzByID(element) {
         <h1>${quizzData.data.questions[i].title}</h1>
         </div>`
 
+            //add M answers to N card
+
+            let arrayNumbAnswer = [];
+
+            for (let w = 0; w < quizzData.data.questions[i].answers.length; w++) {
+                arrayNumbAnswer.push(w);
+            }
+
+            arrayNumbAnswer.sort(() => Math.random() - 0.5);
+
             for (let j = 0; j < quizzData.data.questions[i].answers.length; j++) {
+
+
+
                 pageContainer.querySelector(".question-card:last-child").innerHTML +=
                     `
-                <div class="answer-card ${quizzData.data.questions[i].answers[j].isCorrectAnswer}">
+                <div class="answer-card ${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].isCorrectAnswer}">
                 <div class="answer-img-container">
-                <img src="${quizzData.data.questions[i].answers[j].image}" alt=""/>
+                <img src="${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].image}" alt=""/>
                 </div>
-                <h1>${quizzData.data.questions[i].answers[j].text}</h1>
+                <h1>${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].text}</h1>
                 </div>`
 
 
