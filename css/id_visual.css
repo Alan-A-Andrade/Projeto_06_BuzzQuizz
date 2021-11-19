@@ -82,6 +82,18 @@ body{
   font-size: 21px;
   line-height: 25px;
   color: #EC362D;
+
+  cursor: pointer;
+}
+
+.container .user-quizzes .user-quizzes-create-button:active{
+  background-color: #EC362D;
+
+  color: #FFFFFF;
+
+  border: 1px dashed #FFFFFF;
+
+  cursor: pointer;
 }
 
 .all-quizzes-listed{
@@ -99,6 +111,8 @@ body{
   margin-bottom: 12px;
 
   position: relative;
+
+  cursor: pointer;
 }
 
 .all-quizzes-quizz-degrade{
