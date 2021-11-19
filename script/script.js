@@ -65,7 +65,7 @@ function getQuizzByID(element) {
         for (let i = 0; i < quizzData.data.questions.length; i++) {
 
             pageContainer.querySelector(".quizz-conteiner").innerHTML +=
-                `     <div class="question-card">
+                `     <div class="question-card" data-identifier="question">
         <div style="background-color: ${quizzData.data.questions[i].color}" class="question-title">
         <h1>${quizzData.data.questions[i].title}</h1>
         </div>`
@@ -86,7 +86,7 @@ function getQuizzByID(element) {
 
                 pageContainer.querySelector(".question-card:last-child").innerHTML +=
                     `
-                <div class="answer-card ${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].isCorrectAnswer}">
+                <div class="answer-card ${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].isCorrectAnswer}" data-identifier="answer">
                 <div class="answer-img-container">
                 <img src="${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].image}" alt=""/>
                 </div>
