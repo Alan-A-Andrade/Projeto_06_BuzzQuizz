@@ -65,7 +65,7 @@ function getQuizzByID(element) {
         for (let i = 0; i < quizzData.data.questions.length; i++) {
 
             pageContainer.querySelector(".quizz-conteiner").innerHTML +=
-                `     <div class="question-card" data-identifier="question">
+                `     <div class="question-card not-answered" data-identifier="question">
         <div style="background-color: ${quizzData.data.questions[i].color}" class="question-title">
         <h1>${quizzData.data.questions[i].title}</h1>
         </div>`
@@ -82,19 +82,56 @@ function getQuizzByID(element) {
 
             for (let j = 0; j < quizzData.data.questions[i].answers.length; j++) {
 
-
-
-                pageContainer.querySelector(".question-card:last-child").innerHTML +=
-                    `
-                <div class="answer-card ${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].isCorrectAnswer}" data-identifier="answer">
+                pageContainer.querySelector(".question-card:last-child").innerHTML += `
+                <div onclick="selectAnswer(this)" class="answer-card ${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].isCorrectAnswer}" data-identifier="answer">
                 <div class="answer-img-container">
                 <img src="${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].image}" alt=""/>
                 </div>
                 <h1>${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].text}</h1>
-                </div>`
-
-
+                </div> `
             }
         }
     }
+}
+
+let correctAnswers = 0
+
+function selectAnswer(element) {
+
+    if (element.classList.contains(true)) {
+        correctAnswers++;
+    }
+
+    const questionCard = element.closest(".question-card")
+    const nodeListAnswers = questionCard.querySelectorAll(".answer-card")
+
+    for (let i = 0; i < nodeListAnswers.length; i++) {
+
+        if (nodeListAnswers[i].classList.contains(false)) {
+            nodeListAnswers[i].classList.add("answer-false")
+
+        }
+        else (
+            nodeListAnswers[i].classList.add("answer-true")
+        )
+        nodeListAnswers[i].removeAttribute("onclick")
+    }
+
+
+    for (let i = 0; i < nodeListAnswers.length; i++) {
+
+        if (element !== nodeListAnswers[i]) {
+            nodeListAnswers[i].classList.add("answer-not-selected")
+        }
+    }
+    questionCard.classList.remove("not-answered")
+
+    let nextQuestion = document.querySelector(".not-answered")
+
+    setTimeout(scrollToNextQuestion, 2000)
+
+    function scrollToNextQuestion() {
+        nextQuestion.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
+    }
+
 }

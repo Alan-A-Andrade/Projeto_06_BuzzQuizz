@@ -270,3 +270,15 @@ justify-content: center;
   line-height: 15px;
   padding: 0.5em;
 }
+
+.answer-true{
+color: #009C22;
+}
+
+.answer-false{
+  color: #FF4B4B;
+}
+
+.answer-not-selected{
+  opacity: 0.3;
+}
