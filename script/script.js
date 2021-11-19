@@ -36,10 +36,10 @@ function listQuizzes(answerListQuizzes) {
     }
 }
 
-function createQuizz(){
-  let pageContainer = document.querySelector(".container");
-  pageContainer.innerHTML = "";
-  pageContainer.innerHTML = `
+function createQuizz() {
+    let pageContainer = document.querySelector(".container");
+    pageContainer.innerHTML = "";
+    pageContainer.innerHTML = `
   <section class="create-quizzes">
     <!--create-quizzes-title-->
     <h2 class="create-quizzes-title">Comece pelo começo</h2>
@@ -65,39 +65,39 @@ function createQuizz(){
   `;
 }
 
-function createQuizzQuestions(){
-  alert("teste");
+function createQuizzQuestions() {
+    alert("teste");
 }
 
 function getQuizzByID(element) {
 
-  loadedQuizzID = element
+    loadedQuizzID = element
 
-  clearInterval(listQuizzesInterval);
+    clearInterval(listQuizzesInterval);
 
-  let pageContainer = document.querySelector(".container")
+    let pageContainer = document.querySelector(".container")
 
-  askPromisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${element}`);
-  askPromisse.then(promisseFulfilled);
-  askPromisse.catch(promisseFail);
+    askPromisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${element}`);
+    askPromisse.then(promisseFulfilled);
+    askPromisse.catch(promisseFail);
 
-  function promisseFulfilled(answer) {
+    function promisseFulfilled(answer) {
 
-      showQuizzQuestions(answer)
+        showQuizzQuestions(answer)
 
-  }
+    }
 
-  function promisseFail(answer) {
-      console.log(answer);
+    function promisseFail(answer) {
+        console.log(answer);
 
-  }
+    }
 
-  function showQuizzQuestions(quizzData) {
+    function showQuizzQuestions(quizzData) {
 
-      pageContainer.innerHTML = ""
+        pageContainer.innerHTML = ""
 
-      //add banner
-      pageContainer.innerHTML += `
+        //add banner
+        pageContainer.innerHTML += `
       <div class="quizz-conteiner">
       <section class="banner-quizz">
       <h1>${quizzData.data.title}</h1>
@@ -105,118 +105,118 @@ function getQuizzByID(element) {
       </section>
       </div>`
 
-      //add N questions cards
-      for (let i = 0; i < quizzData.data.questions.length; i++) {
+        //add N questions cards
+        for (let i = 0; i < quizzData.data.questions.length; i++) {
 
-          pageContainer.querySelector(".quizz-conteiner").innerHTML +=
-              `     <div class="question-card not-answered" data-identifier="question">
+            pageContainer.querySelector(".quizz-conteiner").innerHTML +=
+                `     <div class="question-card not-answered" data-identifier="question">
       <div style="background-color: ${quizzData.data.questions[i].color}" class="question-title">
       <h1>${quizzData.data.questions[i].title}</h1>
       </div>`
 
-          //add M answers to N card
+            //add M answers to N card
 
-          let arrayNumbAnswer = [];
+            let arrayNumbAnswer = [];
 
-          for (let w = 0; w < quizzData.data.questions[i].answers.length; w++) {
-              arrayNumbAnswer.push(w);
-          }
+            for (let w = 0; w < quizzData.data.questions[i].answers.length; w++) {
+                arrayNumbAnswer.push(w);
+            }
 
-          arrayNumbAnswer.sort(() => Math.random() - 0.5);
+            arrayNumbAnswer.sort(() => Math.random() - 0.5);
 
-          for (let j = 0; j < quizzData.data.questions[i].answers.length; j++) {
+            for (let j = 0; j < quizzData.data.questions[i].answers.length; j++) {
 
-              pageContainer.querySelector(".question-card:last-child").innerHTML += `
+                pageContainer.querySelector(".question-card:last-child").innerHTML += `
               <div onclick="selectAnswer(this)" class="answer-card ${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].isCorrectAnswer}" data-identifier="answer">
               <div class="answer-img-container">
               <img src="${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].image}" alt=""/>
               </div>
               <h1>${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].text}</h1>
               </div> `
-          }
-      }
+            }
+        }
 
-      loadedQuizzData = quizzData;
+        loadedQuizzData = quizzData;
 
-      document.querySelector("header").scrollIntoView();
-  }
+        document.querySelector("header").scrollIntoView();
+    }
 }
 
 function selectAnswer(element) {
 
-  if (element.classList.contains(true)) {
-      correctAnswers++;
-  }
+    if (element.classList.contains(true)) {
+        correctAnswers++;
+    }
 
-  const questionCard = element.closest(".question-card")
-  const nodeListAnswers = questionCard.querySelectorAll(".answer-card")
+    const questionCard = element.closest(".question-card")
+    const nodeListAnswers = questionCard.querySelectorAll(".answer-card")
 
-  for (let i = 0; i < nodeListAnswers.length; i++) {
+    for (let i = 0; i < nodeListAnswers.length; i++) {
 
-      if (nodeListAnswers[i].classList.contains(false)) {
-          nodeListAnswers[i].classList.add("answer-false")
+        if (nodeListAnswers[i].classList.contains(false)) {
+            nodeListAnswers[i].classList.add("answer-false")
 
-      }
-      else (
-          nodeListAnswers[i].classList.add("answer-true")
-      )
-      nodeListAnswers[i].removeAttribute("onclick")
-  }
+        }
+        else (
+            nodeListAnswers[i].classList.add("answer-true")
+        )
+        nodeListAnswers[i].removeAttribute("onclick")
+    }
 
 
-  for (let i = 0; i < nodeListAnswers.length; i++) {
+    for (let i = 0; i < nodeListAnswers.length; i++) {
 
-      if (element !== nodeListAnswers[i]) {
-          nodeListAnswers[i].classList.add("answer-not-selected")
-      }
-  }
-  questionCard.classList.remove("not-answered")
+        if (element !== nodeListAnswers[i]) {
+            nodeListAnswers[i].classList.add("answer-not-selected")
+        }
+    }
+    questionCard.classList.remove("not-answered")
 
-  let nextQuestion = document.querySelector(".not-answered")
+    let nextQuestion = document.querySelector(".not-answered")
 
-  if (nextQuestion === null && answeredQuestions !== 0) {
+    if (nextQuestion === null && answeredQuestions !== 0) {
 
-      awardScreen();
-      nextQuestion = document.querySelector(".award-screen")
+        awardScreen();
+        nextQuestion = document.querySelector(".award-screen")
 
-      setTimeout(scrollToNextQuestion, 2000)
+        setTimeout(scrollToNextQuestion, 2000)
 
-  }
+    }
 
-  else {
-      setTimeout(scrollToNextQuestion, 2000)
-  }
+    else {
+        setTimeout(scrollToNextQuestion, 2000)
+    }
 
-  function scrollToNextQuestion() {
-      nextQuestion.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
-  }
+    function scrollToNextQuestion() {
+        nextQuestion.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
+    }
 
-  answeredQuestions++;
+    answeredQuestions++;
 }
 
 
 function awardScreen() {
 
-  let pageContainer = document.querySelector(".container");
-  let numQuestions = loadedQuizzData.data.questions.length
-  let numLevels = loadedQuizzData.data.levels.length
-  let arrLevelsMinValue = [];
-  let answerPercentage = Math.round(100 * correctAnswers / numQuestions);
-  let indexLevel;
+    let pageContainer = document.querySelector(".container");
+    let numQuestions = loadedQuizzData.data.questions.length
+    let numLevels = loadedQuizzData.data.levels.length
+    let arrLevelsMinValue = [];
+    let answerPercentage = Math.round(100 * correctAnswers / numQuestions);
+    let indexLevel;
 
-  for (let i = 0; i < numLevels; i++) {
-      arrLevelsMinValue.push(loadedQuizzData.data.levels[i].minValue)
-  }
+    for (let i = 0; i < numLevels; i++) {
+        arrLevelsMinValue.push(loadedQuizzData.data.levels[i].minValue)
+    }
 
-  for (let i = 0; i < arrLevelsMinValue.length; i++) {
+    for (let i = 0; i < arrLevelsMinValue.length; i++) {
 
-      if (parseInt(arrLevelsMinValue[i]) <= answerPercentage) {
-          indexLevel = i
-      }
-  }
+        if (parseInt(arrLevelsMinValue[i]) <= answerPercentage) {
+            indexLevel = i
+        }
+    }
 
 
-  pageContainer.querySelector(".quizz-conteiner").innerHTML += `
+    pageContainer.querySelector(".quizz-conteiner").innerHTML += `
       <div class="question-card award-screen" data-identifier="question" data-identifier="quizz-result">
       <div style="background-color: #EC362D" class="question-title">
       <h1>${answerPercentage}% de acerto: ${loadedQuizzData.data.levels[indexLevel].title}</h1>
@@ -235,19 +235,19 @@ function awardScreen() {
 
 function resetQuizz() {
 
-  correctAnswers, answeredQuestions = 0;
-  loadedQuizzData = null;
+    correctAnswers, answeredQuestions = 0;
+    loadedQuizzData = null;
 
 
-  getQuizzByID(loadedQuizzID)
+    getQuizzByID(loadedQuizzID)
 }
 
 function backHomePage() {
-  correctAnswers, answeredQuestions = 0;
-  loadedQuizzData, loadedQuizzID = null;
+    correctAnswers, answeredQuestions = 0;
+    loadedQuizzData, loadedQuizzID = null;
 
-  document.querySelector("body").innerHTML = frontPage;
-  listQuizzesRequest();
-  listQuizzesInterval = setInterval(listQuizzesRequest, 1000);
+    document.querySelector("body").innerHTML = frontPage;
+    listQuizzesRequest();
+    listQuizzesInterval = setInterval(listQuizzesRequest, 1000);
 
 }
