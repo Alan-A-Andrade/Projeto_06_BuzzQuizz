@@ -1,4 +1,13 @@
 let listQuizzesInterval = setInterval(listQuizzesRequest, 1000);
+
+let correctAnswers = 0;
+let answeredQuestions = 0;
+let loadedQuizzData;
+let loadedQuizzID;
+const frontPage = document.querySelector("body").innerHTML
+
+listQuizzesRequest();
+
 function listQuizzesRequest() {
     promisseGetQuizzes = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     promisseGetQuizzes.then(listQuizzes);
@@ -28,6 +37,8 @@ function listQuizzes(answerListQuizzes) {
 }
 
 function getQuizzByID(element) {
+
+    loadedQuizzID = element
 
     clearInterval(listQuizzesInterval);
 
@@ -91,10 +102,12 @@ function getQuizzByID(element) {
                 </div> `
             }
         }
+
+        loadedQuizzData = quizzData;
+
+        document.querySelector("header").scrollIntoView();
     }
 }
-
-let correctAnswers = 0
 
 function selectAnswer(element) {
 
@@ -128,10 +141,82 @@ function selectAnswer(element) {
 
     let nextQuestion = document.querySelector(".not-answered")
 
-    setTimeout(scrollToNextQuestion, 2000)
+    if (nextQuestion === null && answeredQuestions !== 0) {
+
+        awardScreen();
+        nextQuestion = document.querySelector(".award-screen")
+
+        setTimeout(scrollToNextQuestion, 2000)
+
+    }
+
+    else {
+        setTimeout(scrollToNextQuestion, 2000)
+    }
 
     function scrollToNextQuestion() {
         nextQuestion.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
     }
+
+    answeredQuestions++;
+}
+
+
+function awardScreen() {
+
+    let pageContainer = document.querySelector(".container");
+    let numQuestions = loadedQuizzData.data.questions.length
+    let numLevels = loadedQuizzData.data.levels.length
+    let arrLevelsMinValue = [];
+    let answerPercentage = Math.round(100 * correctAnswers / numQuestions);
+    let indexLevel;
+
+    for (let i = 0; i < numLevels; i++) {
+        arrLevelsMinValue.push(loadedQuizzData.data.levels[i].minValue)
+    }
+
+    for (let i = 0; i < arrLevelsMinValue.length; i++) {
+
+        if (parseInt(arrLevelsMinValue[i]) <= answerPercentage) {
+            indexLevel = i
+        }
+    }
+
+
+    pageContainer.querySelector(".quizz-conteiner").innerHTML +=
+        `     <div class="question-card award-screen" data-identifier="question">
+<div style="background-color: #EC362D" class="question-title">
+<h1>${answerPercentage}% de acerto: ${loadedQuizzData.data.levels[indexLevel].title}</h1>
+</div>
+<div class="img-text-box">
+<img src="${loadedQuizzData.data.levels[indexLevel].image}" alt=""/>
+<h1>${loadedQuizzData.data.levels[indexLevel].text}</h1>
+</div>
+</div>
+
+<nav class="nav-quizz">
+<button onclick="resetQuizz()">Reiniciar Quizz</button>
+<h1 onclick="backHomePage()">Voltar para home</h1>
+</nav>
+
+`
+
+}
+
+function resetQuizz() {
+
+    correctAnswers = 0;
+    answeredQuestions = 0;
+
+    getQuizzByID(loadedQuizzID)
+}
+
+function backHomePage() {
+    correctAnswers = 0;
+    answeredQuestions = 0;
+
+    document.querySelector("body").innerHTML = frontPage;
+    listQuizzesRequest();
+    listQuizzesInterval = setInterval(listQuizzesRequest, 1000);
 
 }
