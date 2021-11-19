@@ -45,19 +45,19 @@ function createQuizz(){
     <h2 class="create-quizzes-title">Comece pelo começo</h2>
 
     <!--create-quizzes-inputs-->
-    <div class="create-quizzes-inputs">
+    <form class="create-quizzes-inputs">
       <!--create-quizzes-input-->
-      <input class="create-quizzes-input" placeholder="Título do seu quizz">
+      <input type="text" class="create-quizzes-input create-quizz-title" placeholder="Título do seu quizz" required>
 
       <!--create-quizzes-input-->
-      <input class="create-quizzes-input" placeholder="URL da imagem do seu quizz">
+      <input type="url" class="create-quizzes-input create-quizz-url" placeholder="URL da imagem do seu quizz" required>
 
       <!--create-quizzes-input-->      
-      <input class="create-quizzes-input" placeholder="Quantidade de perguntas do quizz">
+      <input type="number" min="0" class="create-quizzes-input create-quizz-questions" placeholder="Quantidade de perguntas do quizz" required>
 
       <!--create-quizzes-input-->
-      <input class="create-quizzes-input" placeholder="Quantidade de níveis do quizz">
-    </div>
+      <input type="number" min="0" class="create-quizzes-input create-quizz-levels" placeholder="Quantidade de níveis do quizz" required>
+    </form>
 
     <!--create-quizzes-button-->
     <button class="create-quizzes-button" onclick="createQuizzQuestions()">Prosseguir pra criar perguntas</button>
@@ -66,8 +66,76 @@ function createQuizz(){
 }
 
 function createQuizzQuestions(){
-  alert("teste");
+  const arrayAcceptableCharacters = [
+    "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
+    "R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h",
+    "i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y",
+    "z","0","1","2","3","4","5","6","7","8","9","-",".","_","~",":","/",
+    "?","#","[","]","@","!","$","&","'","(",")","*","+",",",";","="
+  ];
+  console.log(arrayAcceptableCharacters);
+
+  const createQuizzTitle = document.querySelector(".create-quizz-title");
+  const createQuizzURL = document.querySelector(".create-quizz-url");
+  const createQuizzQuestions = document.querySelector(".create-quizz-questions");
+  const createQuizzLevels = document.querySelector(".create-quizz-levels");
+
+  createQuizzInputsEmpytValidation = (createQuizzTitle.value === "" || createQuizzURL.value === "" || 
+                                      createQuizzQuestions.value === "" || createQuizzLevels.value === "");
+  createQuizzInputTitleValidation = (createQuizzTitle.value.length < 20 || createQuizzTitle.value.length > 65);
+  createQuizzInputQuestionsValidation = (createQuizzQuestions.value < 3);
+  createQuizzInputLevelsValidation = (createQuizzLevels.value < 3);
+
+  if(createQuizzInputsEmpytValidation){
+    alert("Existem campos vazios, preeencha todos eles!");
+    return;
+  }
+
+  if(createQuizzInputTitleValidation){
+    if(createQuizzTitle.value.length < 20){
+      alert("Campo do Título menor do que 20 caracteres!");
+      return;
+    }else{
+      alert("Campo do Título maior do que 65 caracteres!");
+      return;
+    }
+  }else{
+    
+  }
+
+  if(createQuizzInputQuestionsValidation){
+    alert("Campo de Perguntas no mínimo 3!");
+    return;
+  }
+
+  if(createQuizzInputLevelsValidation){
+    alert("Campo de Níveis no mínimo 3!");
+    return;
+  }
+  
+  if(createQuizzURL.value !== null){
+    let iAcceptableCharacters = 0;
+    for (let i = 0; i < createQuizzURL.value.length; i++) {
+      for (let j = 0; j < arrayAcceptableCharacters.length; j++) {
+        if (createQuizzURL.value[i] === arrayAcceptableCharacters[j]) {
+          iAcceptableCharacters = iAcceptableCharacters + 1;
+          console.log(iAcceptableCharacters);
+        }
+      }
+    }
+  
+    if (iAcceptableCharacters !== createQuizzURL.value.length) {
+      alert("Campo de URL inválido, informe uma URL válida!");
+      return;
+    }
+  }
+
+  alert("campos ok!");
 }
+
+
+
+
 
 function getQuizzByID(element) {
 
