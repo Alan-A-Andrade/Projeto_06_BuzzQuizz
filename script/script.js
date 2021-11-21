@@ -1,10 +1,11 @@
-let listQuizzesInterval = setInterval(listQuizzesRequest, 1000);
+let listQuizzesInterval = setInterval(listQuizzesRequest, 10000);
 
 let correctAnswers = 0;
 let answeredQuestions = 0;
 let loadedQuizzData;
 let loadedQuizzID;
 const frontPage = document.querySelector("body").innerHTML
+
 
 listQuizzesRequest();
 
@@ -43,103 +44,246 @@ function createQuizz() {
   <section class="create-quizzes">
     <!--create-quizzes-title-->
     <h2 class="create-quizzes-title">Comece pelo começo</h2>
-
     <!--create-quizzes-inputs-->
     <form class="create-quizzes-inputs">
       <!--create-quizzes-input-->
       <input type="text" class="create-quizzes-input create-quizz-title" placeholder="Título do seu quizz" required>
-
       <!--create-quizzes-input-->
       <input type="url" class="create-quizzes-input create-quizz-url" placeholder="URL da imagem do seu quizz" required>
-
       <!--create-quizzes-input-->      
       <input type="number" min="0" class="create-quizzes-input create-quizz-questions" placeholder="Quantidade de perguntas do quizz" required>
-
       <!--create-quizzes-input-->
       <input type="number" min="0" class="create-quizzes-input create-quizz-levels" placeholder="Quantidade de níveis do quizz" required>
     </form>
-
     <!--create-quizzes-button-->
     <button class="create-quizzes-button" onclick="createQuizzQuestions()">Prosseguir pra criar perguntas</button>
   <section><!--create-quizzes-->
   `;
 }
 
-<<<<<<< HEAD
 function createQuizzQuestions() {
-    alert("teste");
-=======
-function createQuizzQuestions(){
-  const arrayAcceptableCharacters = [
-    "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
-    "R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h",
-    "i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y",
-    "z","0","1","2","3","4","5","6","7","8","9","-",".","_","~",":","/",
-    "?","#","[","]","@","!","$","&","'","(",")","*","+",",",";","="
-  ];
-  console.log(arrayAcceptableCharacters);
+    const arrayAcceptableCharacters = [
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+        "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h",
+        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y",
+        "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", ".", "_", "~", ":", "/",
+        "?", "#", "[", "]", "@", "!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="
+    ];
+    console.log(arrayAcceptableCharacters);
 
-  const createQuizzTitle = document.querySelector(".create-quizz-title");
-  const createQuizzURL = document.querySelector(".create-quizz-url");
-  const createQuizzQuestions = document.querySelector(".create-quizz-questions");
-  const createQuizzLevels = document.querySelector(".create-quizz-levels");
+    const createQuizzTitle = document.querySelector(".create-quizz-title");
+    const createQuizzURL = document.querySelector(".create-quizz-url");
+    const createQuizzQuestions = document.querySelector(".create-quizz-questions");
+    const createQuizzLevels = document.querySelector(".create-quizz-levels");
 
-  createQuizzInputsEmpytValidation = (createQuizzTitle.value === "" || createQuizzURL.value === "" || 
-                                      createQuizzQuestions.value === "" || createQuizzLevels.value === "");
-  createQuizzInputTitleValidation = (createQuizzTitle.value.length < 20 || createQuizzTitle.value.length > 65);
-  createQuizzInputQuestionsValidation = (createQuizzQuestions.value < 3);
-  createQuizzInputLevelsValidation = (createQuizzLevels.value < 3);
+    createQuizzInputsEmpytValidation = (createQuizzTitle.value === "" || createQuizzURL.value === "" ||
+        createQuizzQuestions.value === "" || createQuizzLevels.value === "");
+    createQuizzInputTitleValidation = (createQuizzTitle.value.length < 20 || createQuizzTitle.value.length > 65);
+    createQuizzInputQuestionsValidation = (createQuizzQuestions.value < 3);
+    createQuizzInputLevelsValidation = (createQuizzLevels.value < 3);
 
-  if(createQuizzInputsEmpytValidation){
-    alert("Existem campos vazios, preeencha todos eles!");
-    return;
-  }
-
-  if(createQuizzInputTitleValidation){
-    if(createQuizzTitle.value.length < 20){
-      alert("Campo do Título menor do que 20 caracteres!");
-      return;
-    }else{
-      alert("Campo do Título maior do que 65 caracteres!");
-      return;
+    if (createQuizzInputsEmpytValidation) {
+        alert("Existem campos vazios, preeencha todos eles!");
+        return;
     }
-  }else{
-    
-  }
 
-  if(createQuizzInputQuestionsValidation){
-    alert("Campo de Perguntas no mínimo 3!");
-    return;
-  }
-
-  if(createQuizzInputLevelsValidation){
-    alert("Campo de Níveis no mínimo 3!");
-    return;
-  }
-  
-  if(createQuizzURL.value !== null){
-    let iAcceptableCharacters = 0;
-    for (let i = 0; i < createQuizzURL.value.length; i++) {
-      for (let j = 0; j < arrayAcceptableCharacters.length; j++) {
-        if (createQuizzURL.value[i] === arrayAcceptableCharacters[j]) {
-          iAcceptableCharacters = iAcceptableCharacters + 1;
-          console.log(iAcceptableCharacters);
+    if (createQuizzInputTitleValidation) {
+        if (createQuizzTitle.value.length < 20) {
+            alert("Campo do Título menor do que 20 caracteres!");
+            return;
+        } else {
+            alert("Campo do Título maior do que 65 caracteres!");
+            return;
         }
-      }
-    }
-  
-    if (iAcceptableCharacters !== createQuizzURL.value.length) {
-      alert("Campo de URL inválido, informe uma URL válida!");
-      return;
-    }
-  }
+    } else {
 
-  alert("campos ok!");
->>>>>>> 30d82430a0979fbef92811cc3701cc4da308f69f
+    }
+
+    if (createQuizzInputQuestionsValidation) {
+        alert("Campo de Perguntas no mínimo 3!");
+        return;
+    }
+
+    if (createQuizzInputLevelsValidation) {
+        alert("Campo de Níveis no mínimo 3!");
+        return;
+    }
+
+    if (createQuizzURL.value !== null) {
+        let iAcceptableCharacters = 0;
+        for (let i = 0; i < createQuizzURL.value.length; i++) {
+            for (let j = 0; j < arrayAcceptableCharacters.length; j++) {
+                if (createQuizzURL.value[i] === arrayAcceptableCharacters[j]) {
+                    iAcceptableCharacters = iAcceptableCharacters + 1;
+                    console.log(iAcceptableCharacters);
+                }
+            }
+        }
+
+        if (iAcceptableCharacters !== createQuizzURL.value.length) {
+            alert("Campo de URL inválido, informe uma URL válida!");
+            return;
+        }
+    }
+
+    alert("campos ok!");
 }
 
 
+//user create quizz task set levels
 
+function createQuizzSetLevelsPage(numLevels) {
+    clearInterval(listQuizzesInterval);
+    let pageContainer = document.querySelector(".container");
+    pageContainer.innerHTML = "";
+    pageContainer.innerHTML = `
+  <section class="set-levels">
+  <h1>Agora, decida os níveis</h1>
+  <article>
+  <h1>Nível 1</h1>
+  <input class="level-Title" placeholder="Título do nível"></input>
+  <input class="level-MinValue" placeholder="% de acerto mínima"></input>
+  <input class="level-imgURL" placeholder="URL da imagem do nível"></input>
+  <input class="level-text"placeholder="Descrição do nível"></input>
+  </article>
+
+</section>
+  `
+    let sectionLevel = document.querySelector("section")
+
+    for (let i = 2; i <= numLevels; i++) {
+
+        sectionLevel.innerHTML += `
+    <article>
+    <h1>Nível ${i}</h1>
+    <img onclick="expandInput(this)" class="create-icon" src="./assets/Icons/create-icon.png">
+    <input class="level-Title hidden" placeholder="Título do nível"></input>
+    <input class="level-MinValue hidden" placeholder="% de acerto mínima"></input>
+    <input class="level-imgURL hidden" placeholder="URL da imagem do nível"></input>
+    <input class="level-text hidden"placeholder="Descrição do nível"></input>
+    </article>
+    `
+    }
+    sectionLevel.innerHTML += `<button onclick="CreateQuizzLevelsArray(${numLevels})">Finalizar Quizz</button>`
+}
+
+//expand inputs on levels creation
+
+function expandInput(element) {
+
+    let arrayHiddenInput = element.closest("article").querySelectorAll("input");
+
+    for (let i = 0; i < arrayHiddenInput.length; i++) {
+
+        arrayHiddenInput[i].classList.remove("hidden")
+
+    }
+
+    element.classList.add("hidden")
+
+    element.closest("article").scrollIntoView()
+}
+
+//storage created levels data into arr to later use
+
+let arrCreatedLevels = [];
+
+function CreateQuizzLevelsArray(numLevels) {
+
+    let minValueZeroPercente = false
+
+    for (i = 2; i <= numLevels + 1; i++) {
+
+        let userLevel = document.querySelector(`article:nth-child(${i})`)
+
+
+        if (userLevel.querySelector(".level-Title").value.length < 10) {
+            alert("Título do nível: mínimo de 10 caracteres")
+            arrCreatedLevels = []
+            return;
+        }
+
+        else if (userLevel.querySelector(".level-MinValue").value === "" || userLevel.querySelector(".level-MinValue").value % 1 != 0 || userLevel.querySelector(".level-MinValue").value < 0 || userLevel.querySelector(".level-MinValue").value > 100) {
+            alert("% de acerto mínima: um número inteiro entre 0 e 100")
+            arrCreatedLevels = []
+            return;
+        }
+
+        else if (userLevel.querySelector(".level-text").value.length < 30) {
+            alert("Título do nível: mínimo de 30 caracteres")
+            arrCreatedLevels = []
+            return;
+        }
+
+        else if (validateURL(userLevel.querySelector(".level-imgURL").value) === false) {
+            alert("URL não é valida")
+            arrCreatedLevels = []
+            return;
+        }
+
+
+        let objUserlevel =
+        {
+            title: userLevel.querySelector(".level-Title").value,
+            image: userLevel.querySelector(".level-imgURL").value,
+            text: userLevel.querySelector(".level-text").value,
+            minValue: userLevel.querySelector(".level-MinValue").value,
+        }
+
+        arrCreatedLevels.push(objUserlevel);
+
+    }
+
+
+    for (i = 0; i < numLevels; i++) {
+
+        if (arrCreatedLevels[i].minValue === "0") {
+
+            minValueZeroPercente = true
+        }
+
+    }
+
+
+    if (minValueZeroPercente === false) {
+        alert("É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%")
+        arrCreatedLevels = []
+        return
+    }
+
+    console.log(arrCreatedLevels)
+}
+
+function validateURL(url) {
+
+    const arrayAcceptableCharacters = [
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+        "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h",
+        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y",
+        "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", ".", "_", "~", ":", "/",
+        "?", "#", "[", "]", "@", "!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="
+    ];
+
+
+    if (url !== null) {
+        let iAcceptableCharacters = 0;
+        for (let i = 0; i < url.length; i++) {
+            for (let j = 0; j < arrayAcceptableCharacters.length; j++) {
+                if (url[i] === arrayAcceptableCharacters[j]) {
+                    iAcceptableCharacters = iAcceptableCharacters + 1;
+                }
+            }
+        }
+
+        if (iAcceptableCharacters !== url.length) {
+            alert("Campo de URL inválido, informe uma URL válida!");
+            return false;
+        }
+    }
+
+    return true;
+
+}
 
 
 function getQuizzByID(element) {
@@ -211,7 +355,7 @@ function getQuizzByID(element) {
 
         loadedQuizzData = quizzData;
 
-        document.querySelector("header").scrollIntoView();
+        document.querySelector("header").scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     }
 }
 

@@ -582,3 +582,104 @@ line-height: 25px;
   color: #818181;
 
 }
+
+.set-levels{
+  width: 600px;
+
+  padding: 60px 0px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+
+
+}
+
+.set-levels h1{
+  font-style: normal;
+  font-weight: bold;
+  font-size: 23px;
+  line-height: 27px;
+
+  padding: 0px 20px 0px 0px;
+
+}
+
+.set-levels article{
+  width: 100%;
+
+  padding: 25px 18px;
+
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+
+  position: relative;
+}
+
+.set-levels article h1{
+  font-size: 20px;
+}
+
+.set-levels article input{
+  width: 564px;
+  height: 46px;
+  left: 436px;
+  top: 324px;
+
+  font-style: italic;
+  font-weight: normal;
+  font-size: 19px;
+  line-height: 22px;
+  color: #BABABA;
+
+  padding-left: 20px;
+  
+  background: #FFFFFF;
+  border: 1px solid #D1D1D1;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.set-levels article input::placeholder{
+  font-style: italic;
+  font-weight: normal;
+  font-size: 19px;
+  line-height: 22px;
+  color: #BABABA;
+
+}
+
+
+.set-levels article .create-icon{
+
+position: absolute;
+top: 27px;
+right: 20px;
+
+}
+
+.set-levels button{
+  width: 324px;
+  height: 52px;
+
+  background: #EC362D;
+  border: none;
+  border-radius: 15px;
+  
+  margin-top: 25px;
+  
+  font-size: 21px;
+  line-height: 25px;
+  color: #FFF5F4;
+}
+
+.hidden{
+  display: none;
+}
