@@ -20,6 +20,24 @@ function listQuizzes(answerListQuizzes) {
     for (let i = 0; i < quizzes.length; i++) {
         let quizz = quizzes[i];
 
+        let isAnUserMadeQuizz = false
+
+        if (userCreatedQuizzId !== null) {
+
+            for (let j = 0; j < userCreatedQuizzId.length; j++) {
+
+                if (quizz.id == userCreatedQuizzId[j]) {
+
+                    isAnUserMadeQuizz = true
+                }
+            }
+
+            if (isAnUserMadeQuizz) {
+                continue;
+            }
+
+        }
+
         quizzesListed.innerHTML += `
     <div class="all-quizzes-quizz" onclick="getQuizzByID(${quizz.id})">
       <!--all-quizzes-quizz-bg-->
@@ -34,7 +52,7 @@ function listQuizzes(answerListQuizzes) {
     `;
     }
 
-    listCreatedUserQuizz();
+    listCreatedUserQuizz(quizzes);
 }
 
 function createQuizz() {
@@ -287,9 +305,9 @@ function validateURL(url) {
 
 
 
-function listCreatedUserQuizz() {
+function listCreatedUserQuizz(quizzData) {
 
-    if (userCreatedQuizzData == "") {
+    if (userCreatedQuizzId === null) {
 
         document.querySelector(".user-quizzes-none").classList.remove("hidden")
         document.querySelector(".user-quizzes-listed").classList.add("hidden")
@@ -300,18 +318,63 @@ function listCreatedUserQuizz() {
         document.querySelector(".user-quizzes-none").classList.add("hidden")
         document.querySelector(".user-quizzes-listed").classList.remove("hidden")
 
+        let container = document.querySelector(".user-quizzes-listed-all")
+        container.innerHTML = "";
+
+        for (let i = 0; i < quizzData.length; i++) {
+
+            let isAnUserMadeQuizz = false
+
+            for (let j = 0; j < userCreatedQuizzId.length; j++) {
+
+                if (quizzData[i].id == userCreatedQuizzId[j]) {
+
+                    isAnUserMadeQuizz = true
+                }
+            }
+
+            if (!isAnUserMadeQuizz) {
+                continue;
+            }
+
+            container.innerHTML += `
+            <div class="all-quizzes-quizz" onclick="getQuizzByID(${quizzData[i].id})">
+            <img class="all-quizzes-quizz-bg" src="${quizzData[i].image}">
+            <div class="all-quizzes-quizz-degrade"></div>
+            <div class="all-quizzes-quizz-title">
+            <p>${quizzData[i].title}</p>
+            </div>
+            </div>      
+            `;
+        }
+
+
 
     }
 
 }
 
-let userCreatedQuizzData = []
+let userCreatedQuizzData = JSON.parse(localStorage.getItem("data"))
+let userCreatedQuizzId = JSON.parse(localStorage.getItem("id"))
+let userCreatedQuizzSecretKey = JSON.parse(localStorage.getItem("UniqueKey"))
+
+let userCreatedQuizzDataStringified;
+let userCreatedQuizzIdStringified;
+let userCreatedQuizzSecretKeyStringified;
+
+if (userCreatedQuizzId === null) {
+
+    userCreatedQuizzData = []
+    userCreatedQuizzId = []
+    userCreatedQuizzSecretKey = {}
+
+}
 
 function storeUserCreatedQuizz() {
 
 
     let obj = {
-        title: "Título do quizz",
+        title: "Título do meu quizz",
         image: "https://http.cat/411.jpg",
         questions: [
             {
@@ -384,12 +447,24 @@ function storeUserCreatedQuizz() {
     promise.catch(tratarErro);
 
     function tratarSucesso(resposta) {
-        userCreatedQuizzData.push(resposta)
+        userCreatedQuizzData.push(resposta.data)
+        userCreatedQuizzId.push(resposta.data.id)
+        userCreatedQuizzSecretKey[resposta.data.id] = resposta.data.key
+
+
+        userCreatedQuizzDataStringified = JSON.stringify(userCreatedQuizzData)
+        userCreatedQuizzIdStringified = JSON.stringify(userCreatedQuizzId)
+        userCreatedQuizzSecretKeyStringified = JSON.stringify(userCreatedQuizzSecretKey)
+
+        localStorage.setItem("data", userCreatedQuizzDataStringified)
+        localStorage.setItem("id", userCreatedQuizzIdStringified)
+        localStorage.setItem("UniqueKey", userCreatedQuizzSecretKeyStringified)
+
     }
 
     function tratarErro(erro) {
-        console.log("Status code: " + erro.response.status); // Ex: 404
-        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
+        console.log("Status code: " + erro.response.status);
+        console.log("Mensagem de erro: " + erro.response.data);
     }
 }
 

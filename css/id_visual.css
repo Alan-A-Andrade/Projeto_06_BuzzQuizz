@@ -49,8 +49,8 @@ body{
   padding-bottom: 211px;
 }
 
-.user-quizzes{
-margin: 15px;
+.user-quizzes h2{
+margin-left: 15px;
 }
 
 .container .user-quizzes .user-quizzes-none{
@@ -69,7 +69,12 @@ margin: 15px;
   justify-content: center;
 }
 
+.user-quizzes-listed{
+width: 100%;
+}
+
 .container .user-quizzes .user-quizzes-listed{
+
   margin-top: 69px;
 }
 
@@ -135,6 +140,7 @@ margin: 15px;
 
   display: flex;
   flex-wrap: wrap;
+  gap: 15px;
 }
 
 .all-quizzes-listed{
@@ -427,7 +433,7 @@ margin: 15px;
 }
 
 .banner-quizz{
-  width: 100%;
+  width: 100vw;
   max-height: 227px;
 
   background-color: black;
