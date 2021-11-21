@@ -370,33 +370,24 @@ if (userCreatedQuizzId === null) {
 
 }
 
-function storeUserCreatedQuizz(obj) {
+function storeUserCreatedQuizz(resposta) {
 
-    let promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", obj)
-    promise.then(tratarSucesso);
-    promise.catch(tratarErro);
-
-    function tratarSucesso(resposta) {
-        userCreatedQuizzData.push(resposta.data)
-        userCreatedQuizzId.push(resposta.data.id)
-        userCreatedQuizzSecretKey[resposta.data.id] = resposta.data.key
+    userCreatedQuizzData.push(resposta.data)
+    userCreatedQuizzId.push(resposta.data.id)
+    userCreatedQuizzSecretKey[resposta.data.id] = resposta.data.key
 
 
-        userCreatedQuizzDataStringified = JSON.stringify(userCreatedQuizzData)
-        userCreatedQuizzIdStringified = JSON.stringify(userCreatedQuizzId)
-        userCreatedQuizzSecretKeyStringified = JSON.stringify(userCreatedQuizzSecretKey)
+    userCreatedQuizzDataStringified = JSON.stringify(userCreatedQuizzData)
+    userCreatedQuizzIdStringified = JSON.stringify(userCreatedQuizzId)
+    userCreatedQuizzSecretKeyStringified = JSON.stringify(userCreatedQuizzSecretKey)
 
-        localStorage.setItem("data", userCreatedQuizzDataStringified)
-        localStorage.setItem("id", userCreatedQuizzIdStringified)
-        localStorage.setItem("UniqueKey", userCreatedQuizzSecretKeyStringified)
+    localStorage.setItem("data", userCreatedQuizzDataStringified)
+    localStorage.setItem("id", userCreatedQuizzIdStringified)
+    localStorage.setItem("UniqueKey", userCreatedQuizzSecretKeyStringified)
 
-    }
-
-    function tratarErro(erro) {
-        console.log("Status code: " + erro.response.status);
-        console.log("Mensagem de erro: " + erro.response.data);
-    }
 }
+
+
 
 function getQuizzByID(element) {
 
