@@ -646,6 +646,64 @@ function CreateQuizzLevelsArray(numLevels) {
     }
 
     console.log(arrCreatedLevels)
+    sendCreatedQuizz(titleQuizzInput, URLQuizzInput, arrayCreatedQuestions, arrCreatedLevels);
+}
+
+let createdQuizzUser = {};
+function sendCreatedQuizz(createdQuizzTitle, createdQuizzImage, createdQuizzArrayQuestions, createdQuizzArrayLevels){
+  createdQuizzUser["title"] = createdQuizzTitle;
+  createdQuizzUser["image"] = createdQuizzImage;
+  createdQuizzUser["questions"] = createdQuizzArrayQuestions;
+  createdQuizzUser["levels"] = createdQuizzArrayLevels;
+
+  console.log(createdQuizzUser);
+
+  promisseSendCreatedQuizz = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizzUser);
+  promisseSendCreatedQuizz.then(sendCreatedQuizzSucess);
+  promisseSendCreatedQuizz.then(storeUserCreatedQuizz);
+  promisseSendCreatedQuizz.catch(sendCreatedQuizzFailure);
+}
+
+function sendCreatedQuizzSucess(answerSendCreatedQuizz){
+  console.log(answerSendCreatedQuizz.data);
+
+  let arrayQuizzCreated = answerSendCreatedQuizz.data;
+
+  let pageContainer = document.querySelector(".container");
+  pageContainer.innerHTML = "";
+  pageContainer.innerHTML = `
+  <!--created-quizz-success-title-->
+  <h2 class="created-quizz-success-title">Seu quizz está pronto!</h2>
+
+  <!--created-quizz-success-quizz-->
+  <div class="created-quizz-success-quizz">
+    <!--created-quizz-success-quizz-bg-->
+    <img class="created-quizz-success-quizz-bg" src="${arrayQuizzCreated.image}">
+
+    <!--created-quizz-success-quizz-degrade-->
+    <div class="created-quizz-success-quizz-degrade" onclick="getQuizzByID(${arrayQuizzCreated.id})"></div>
+
+    <!--created-quizz-success-quizz-title-->
+    <div class="created-quizz-success-quizz-title">
+      <p>${arrayQuizzCreated.title}</p>
+    </div>
+  </div>
+
+  <!--created-quizz-success-quizz-button-->
+  <button class="created-quizz-success-quizz-button" onclick="getQuizzByID(${arrayQuizzCreated.id})">Acessar Quizz</button>
+
+  <!--created-quizz-success-quizz-link-->
+  <a class="created-quizz-success-quizz-link" onclick="backHomePage()">Voltar pra home</a> 
+  `;
+
+  alert("Quizz criado com sucesso, parabéns!");
+}
+
+function sendCreatedQuizzFailure(errorSendCreatedQuizz){
+  console.log(errorSendCreatedQuizz.response);
+
+  alert(`Não foi possível enviar seu quizz, em virturde de ter ocorrido um erro ${errorSendCreatedQuizz.response.status}`);
+  window.location.reload(true);
 }
 
 function validateURL(url) {
@@ -747,6 +805,7 @@ if (userCreatedQuizzId === null) {
 }
 
 function storeUserCreatedQuizz(resposta) {
+  console.log("entrei!!");
 
     userCreatedQuizzData.push(resposta.data)
     userCreatedQuizzId.push(resposta.data.id)
