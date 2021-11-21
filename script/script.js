@@ -1,10 +1,9 @@
-let listQuizzesInterval = setInterval(listQuizzesRequest, 10000);
-
 let correctAnswers = 0;
 let answeredQuestions = 0;
 let loadedQuizzData;
 let loadedQuizzID;
-const frontPage = document.querySelector("body").innerHTML
+const frontPage = document.querySelector("body").innerHTML;
+
 
 listQuizzesRequest();
 function listQuizzesRequest() {
@@ -20,6 +19,24 @@ function listQuizzes(answerListQuizzes) {
     for (let i = 0; i < quizzes.length; i++) {
         let quizz = quizzes[i];
 
+        let isAnUserMadeQuizz = false
+
+        if (userCreatedQuizzId !== null) {
+
+            for (let j = 0; j < userCreatedQuizzId.length; j++) {
+
+                if (quizz.id == userCreatedQuizzId[j]) {
+
+                    isAnUserMadeQuizz = true
+                }
+            }
+
+            if (isAnUserMadeQuizz) {
+                continue;
+            }
+
+        }
+
         quizzesListed.innerHTML += `
     <div class="all-quizzes-quizz" onclick="getQuizzByID(${quizz.id})">
       <!--all-quizzes-quizz-bg-->
@@ -33,36 +50,34 @@ function listQuizzes(answerListQuizzes) {
     </div><!--all-quizzes-quizz-->        
     `;
     }
+
+    listCreatedUserQuizz(quizzes);
 }
 
-function createQuizz(){
-  let pageContainer = document.querySelector(".container");
-  pageContainer.innerHTML = "";
-  pageContainer.innerHTML = `
+function createQuizz() {
+    let pageContainer = document.querySelector(".container");
+    pageContainer.innerHTML = "";
+    pageContainer.innerHTML = `
   <section class="create-quizzes">
     <!--create-quizzes-title-->
     <h2 class="create-quizzes-title">Comece pelo começo</h2>
-
     <!--create-quizzes-inputs-->
     <form class="create-quizzes-inputs">
       <!--create-quizzes-input-->
       <input type="text" class="create-quizzes-input create-quizz-title" placeholder="Título do seu quizz" required>
-
       <!--create-quizzes-input-->
       <input type="url" class="create-quizzes-input create-quizz-url" placeholder="URL da imagem do seu quizz" required>
-
       <!--create-quizzes-input-->      
       <input type="number" min="0" class="create-quizzes-input create-quizz-questions" placeholder="Quantidade de perguntas do quizz" required>
-
       <!--create-quizzes-input-->
       <input type="number" min="0" class="create-quizzes-input create-quizz-levels" placeholder="Quantidade de níveis do quizz" required>
     </form>
-
     <!--create-quizzes-button-->
     <button class="create-quizzes-button" onclick="createQuizzQuestions()">Prosseguir pra criar perguntas</button>
   <section><!--create-quizzes-->
   `;
 }
+
 
 let titleQuizzInput;
 let URLQuizzInput;
@@ -101,8 +116,6 @@ function createQuizzQuestions(){
       alert("Campo do Título maior do que 65 caracteres!");
       return;
     }
-  }else{
-    
   }
 
   if(createQuizzInputQuestionsValidation){
@@ -115,20 +128,31 @@ function createQuizzQuestions(){
     return;
   }
   
-  if(createQuizzURL.value !== null){
-    let iAcceptableCharacters = 0;
-    for (let i = 0; i < createQuizzURL.value.length; i++) {
-      for (let j = 0; j < arrayAcceptableCharacters.length; j++) {
-        if (createQuizzURL.value[i] === arrayAcceptableCharacters[j]) {
-          iAcceptableCharacters = iAcceptableCharacters + 1;
-        }
-      }
-    }
-  
-    if (iAcceptableCharacters !== createQuizzURL.value.length) {
-      alert("Campo de URL inválido, informe uma URL válida!");
+
+  if (createQuizzInputQuestionsValidation) {
+      alert("Campo de Perguntas no mínimo 3!");
       return;
-    }
+  }
+
+  if (createQuizzInputLevelsValidation) {
+      alert("Campo de Níveis no mínimo 3!");
+      return;
+  }
+
+  if (createQuizzURL.value !== null) {
+      let iAcceptableCharacters = 0;
+      for (let i = 0; i < createQuizzURL.value.length; i++) {
+          for (let j = 0; j < arrayAcceptableCharacters.length; j++) {
+              if (createQuizzURL.value[i] === arrayAcceptableCharacters[j]) {
+                  iAcceptableCharacters = iAcceptableCharacters + 1;
+              }
+          }
+      }
+
+      if (iAcceptableCharacters !== createQuizzURL.value.length) {
+          alert("Campo de URL inválido, informe uma URL válida!");
+          return;
+      }
   }
 
   alert("Campos preenchidos corretamente!");
@@ -496,41 +520,278 @@ function createArrayQuizzQuestions(numberQuestions){
   console.log(objectCreatedQuestion);
   console.log(arrayCreatedQuestions);
   alert("Campos preenchidos corretamente!");
+
+  createQuizzSetLevelsPage(levelsQuizzInput);
 }
 
 
+//user create quizz task set levels
+
+function createQuizzSetLevelsPage(numLevels) {
+    let pageContainer = document.querySelector(".container");
+    pageContainer.innerHTML = "";
+    pageContainer.innerHTML = `
+  <section class="set-levels">
+  <h1>Agora, decida os níveis</h1>
+  <article>
+  <h1>Nível 1</h1>
+  <input class="level-Title" placeholder="Título do nível"></input>
+  <input class="level-MinValue" placeholder="% de acerto mínima"></input>
+  <input class="level-imgURL" placeholder="URL da imagem do nível"></input>
+  <input class="level-text"placeholder="Descrição do nível"></input>
+  </article>
+
+</section>
+  `
+    let sectionLevel = document.querySelector("section")
+
+    for (let i = 2; i <= numLevels; i++) {
+
+        sectionLevel.innerHTML += `
+    <article>
+    <h1>Nível ${i}</h1>
+    <img onclick="expandInput(this)" class="create-icon" src="./assets/Icons/create-icon.png">
+    <input class="level-Title hidden" placeholder="Título do nível"></input>
+    <input class="level-MinValue hidden" placeholder="% de acerto mínima"></input>
+    <input class="level-imgURL hidden" placeholder="URL da imagem do nível"></input>
+    <input class="level-text hidden"placeholder="Descrição do nível"></input>
+    </article>
+    `
+    }
+    sectionLevel.innerHTML += `<button onclick="CreateQuizzLevelsArray(${numLevels})">Finalizar Quizz</button>`
+}
+
+//expand inputs on levels creation
+
+function expandInput(element) {
+
+    let arrayHiddenInput = element.closest("article").querySelectorAll("input");
+
+    for (let i = 0; i < arrayHiddenInput.length; i++) {
+
+        arrayHiddenInput[i].classList.remove("hidden")
+
+    }
+
+    element.classList.add("hidden")
+
+    element.closest("article").scrollIntoView()
+}
+
+//storage created levels data into arr to later use
+
+let arrCreatedLevels = [];
+
+function CreateQuizzLevelsArray(numLevels) {
+
+    let minValueZeroPercente = false
+
+    for (i = 2; i <= numLevels + 1; i++) {
+
+        let userLevel = document.querySelector(`article:nth-child(${i})`)
+
+
+        if (userLevel.querySelector(".level-Title").value.length < 10) {
+            alert("Título do nível: mínimo de 10 caracteres")
+            arrCreatedLevels = []
+            return;
+        }
+
+        else if (userLevel.querySelector(".level-MinValue").value === "" || userLevel.querySelector(".level-MinValue").value % 1 != 0 || userLevel.querySelector(".level-MinValue").value < 0 || userLevel.querySelector(".level-MinValue").value > 100) {
+            alert("% de acerto mínima: um número inteiro entre 0 e 100")
+            arrCreatedLevels = []
+            return;
+        }
+
+        else if (userLevel.querySelector(".level-text").value.length < 30) {
+            alert("Título do nível: mínimo de 30 caracteres")
+            arrCreatedLevels = []
+            return;
+        }
+
+        else if (validateURL(userLevel.querySelector(".level-imgURL").value) === false) {
+            alert("URL não é valida")
+            arrCreatedLevels = []
+            return;
+        }
+
+
+        let objUserlevel =
+        {
+            title: userLevel.querySelector(".level-Title").value,
+            image: userLevel.querySelector(".level-imgURL").value,
+            text: userLevel.querySelector(".level-text").value,
+            minValue: userLevel.querySelector(".level-MinValue").value,
+        }
+
+        arrCreatedLevels.push(objUserlevel);
+
+    }
+
+
+    for (i = 0; i < numLevels; i++) {
+
+        if (arrCreatedLevels[i].minValue === "0") {
+
+            minValueZeroPercente = true
+        }
+
+    }
+
+
+    if (minValueZeroPercente === false) {
+        alert("É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%")
+        arrCreatedLevels = []
+        return
+    }
+
+    console.log(arrCreatedLevels)
+}
+
+function validateURL(url) {
+
+    const arrayAcceptableCharacters = [
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+        "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h",
+        "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y",
+        "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", ".", "_", "~", ":", "/",
+        "?", "#", "[", "]", "@", "!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="
+    ];
+
+
+    if (url !== null) {
+        let iAcceptableCharacters = 0;
+        for (let i = 0; i < url.length; i++) {
+            for (let j = 0; j < arrayAcceptableCharacters.length; j++) {
+                if (url[i] === arrayAcceptableCharacters[j]) {
+                    iAcceptableCharacters = iAcceptableCharacters + 1;
+                }
+            }
+        }
+
+        if (iAcceptableCharacters !== url.length) {
+            alert("Campo de URL inválido, informe uma URL válida!");
+            return false;
+        }
+    }
+
+    return true;
+
+}
+
+
+
+function listCreatedUserQuizz(quizzData) {
+
+    if (userCreatedQuizzId == "") {
+
+        document.querySelector(".user-quizzes-none").classList.remove("hidden")
+        document.querySelector(".user-quizzes-listed").classList.add("hidden")
+    }
+
+    else {
+
+        document.querySelector(".user-quizzes-none").classList.add("hidden")
+        document.querySelector(".user-quizzes-listed").classList.remove("hidden")
+
+        let container = document.querySelector(".user-quizzes-listed-all")
+        container.innerHTML = "";
+
+        for (let i = 0; i < quizzData.length; i++) {
+
+            let isAnUserMadeQuizz = false
+
+            for (let j = 0; j < userCreatedQuizzId.length; j++) {
+
+                if (quizzData[i].id == userCreatedQuizzId[j]) {
+
+                    isAnUserMadeQuizz = true
+                }
+            }
+
+            if (!isAnUserMadeQuizz) {
+                continue;
+            }
+
+            container.innerHTML += `
+            <div class="all-quizzes-quizz" onclick="getQuizzByID(${quizzData[i].id})">
+            <img class="all-quizzes-quizz-bg" src="${quizzData[i].image}">
+            <div class="all-quizzes-quizz-degrade"></div>
+            <div class="all-quizzes-quizz-title">
+            <p>${quizzData[i].title}</p>
+            </div>
+            </div>      
+            `;
+        }
+
+
+
+    }
+
+}
+
+let userCreatedQuizzData = JSON.parse(localStorage.getItem("data"))
+let userCreatedQuizzId = JSON.parse(localStorage.getItem("id"))
+let userCreatedQuizzSecretKey = JSON.parse(localStorage.getItem("UniqueKey"))
+
+let userCreatedQuizzDataStringified;
+let userCreatedQuizzIdStringified;
+let userCreatedQuizzSecretKeyStringified;
+
+if (userCreatedQuizzId === null) {
+
+    userCreatedQuizzData = []
+    userCreatedQuizzId = []
+    userCreatedQuizzSecretKey = {}
+
+}
+
+function storeUserCreatedQuizz(resposta) {
+
+    userCreatedQuizzData.push(resposta.data)
+    userCreatedQuizzId.push(resposta.data.id)
+    userCreatedQuizzSecretKey[resposta.data.id] = resposta.data.key
+
+
+    userCreatedQuizzDataStringified = JSON.stringify(userCreatedQuizzData)
+    userCreatedQuizzIdStringified = JSON.stringify(userCreatedQuizzId)
+    userCreatedQuizzSecretKeyStringified = JSON.stringify(userCreatedQuizzSecretKey)
+
+    localStorage.setItem("data", userCreatedQuizzDataStringified)
+    localStorage.setItem("id", userCreatedQuizzIdStringified)
+    localStorage.setItem("UniqueKey", userCreatedQuizzSecretKeyStringified)
+
+}
 
 
 
 function getQuizzByID(element) {
 
-  loadedQuizzID = element
+    loadedQuizzID = element
 
-  clearInterval(listQuizzesInterval);
+    let pageContainer = document.querySelector(".container")
 
-  let pageContainer = document.querySelector(".container")
+    askPromisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${element}`);
+    askPromisse.then(promisseFulfilled);
+    askPromisse.catch(promisseFail);
 
-  askPromisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${element}`);
-  askPromisse.then(promisseFulfilled);
-  askPromisse.catch(promisseFail);
+    function promisseFulfilled(answer) {
 
-  function promisseFulfilled(answer) {
+        showQuizzQuestions(answer)
 
-      showQuizzQuestions(answer)
+    }
 
-  }
+    function promisseFail(answer) {
+        console.log(answer);
 
-  function promisseFail(answer) {
-      console.log(answer);
+    }
 
-  }
+    function showQuizzQuestions(quizzData) {
 
-  function showQuizzQuestions(quizzData) {
+        pageContainer.innerHTML = ""
 
-      pageContainer.innerHTML = ""
-
-      //add banner
-      pageContainer.innerHTML += `
+        //add banner
+        pageContainer.innerHTML += `
       <div class="quizz-conteiner">
       <section class="banner-quizz">
       <h1>${quizzData.data.title}</h1>
@@ -538,118 +799,118 @@ function getQuizzByID(element) {
       </section>
       </div>`
 
-      //add N questions cards
-      for (let i = 0; i < quizzData.data.questions.length; i++) {
+        //add N questions cards
+        for (let i = 0; i < quizzData.data.questions.length; i++) {
 
-          pageContainer.querySelector(".quizz-conteiner").innerHTML +=
-              `     <div class="question-card not-answered" data-identifier="question">
+            pageContainer.querySelector(".quizz-conteiner").innerHTML +=
+                `     <div class="question-card not-answered" data-identifier="question">
       <div style="background-color: ${quizzData.data.questions[i].color}" class="question-title">
       <h1>${quizzData.data.questions[i].title}</h1>
       </div>`
 
-          //add M answers to N card
+            //add M answers to N card
 
-          let arrayNumbAnswer = [];
+            let arrayNumbAnswer = [];
 
-          for (let w = 0; w < quizzData.data.questions[i].answers.length; w++) {
-              arrayNumbAnswer.push(w);
-          }
+            for (let w = 0; w < quizzData.data.questions[i].answers.length; w++) {
+                arrayNumbAnswer.push(w);
+            }
 
-          arrayNumbAnswer.sort(() => Math.random() - 0.5);
+            arrayNumbAnswer.sort(() => Math.random() - 0.5);
 
-          for (let j = 0; j < quizzData.data.questions[i].answers.length; j++) {
+            for (let j = 0; j < quizzData.data.questions[i].answers.length; j++) {
 
-              pageContainer.querySelector(".question-card:last-child").innerHTML += `
+                pageContainer.querySelector(".question-card:last-child").innerHTML += `
               <div onclick="selectAnswer(this)" class="answer-card ${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].isCorrectAnswer}" data-identifier="answer">
               <div class="answer-img-container">
               <img src="${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].image}" alt=""/>
               </div>
               <h1>${quizzData.data.questions[i].answers[arrayNumbAnswer[j]].text}</h1>
               </div> `
-          }
-      }
+            }
+        }
 
-      loadedQuizzData = quizzData;
+        loadedQuizzData = quizzData;
 
-      document.querySelector("header").scrollIntoView();
-  }
+        document.querySelector("header").scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+    }
 }
 
 function selectAnswer(element) {
 
-  if (element.classList.contains(true)) {
-      correctAnswers++;
-  }
+    if (element.classList.contains(true)) {
+        correctAnswers++;
+    }
 
-  const questionCard = element.closest(".question-card")
-  const nodeListAnswers = questionCard.querySelectorAll(".answer-card")
+    const questionCard = element.closest(".question-card")
+    const nodeListAnswers = questionCard.querySelectorAll(".answer-card")
 
-  for (let i = 0; i < nodeListAnswers.length; i++) {
+    for (let i = 0; i < nodeListAnswers.length; i++) {
 
-      if (nodeListAnswers[i].classList.contains(false)) {
-          nodeListAnswers[i].classList.add("answer-false")
+        if (nodeListAnswers[i].classList.contains(false)) {
+            nodeListAnswers[i].classList.add("answer-false")
 
-      }
-      else (
-          nodeListAnswers[i].classList.add("answer-true")
-      )
-      nodeListAnswers[i].removeAttribute("onclick")
-  }
+        }
+        else (
+            nodeListAnswers[i].classList.add("answer-true")
+        )
+        nodeListAnswers[i].removeAttribute("onclick")
+    }
 
 
-  for (let i = 0; i < nodeListAnswers.length; i++) {
+    for (let i = 0; i < nodeListAnswers.length; i++) {
 
-      if (element !== nodeListAnswers[i]) {
-          nodeListAnswers[i].classList.add("answer-not-selected")
-      }
-  }
-  questionCard.classList.remove("not-answered")
+        if (element !== nodeListAnswers[i]) {
+            nodeListAnswers[i].classList.add("answer-not-selected")
+        }
+    }
+    questionCard.classList.remove("not-answered")
 
-  let nextQuestion = document.querySelector(".not-answered")
+    let nextQuestion = document.querySelector(".not-answered")
 
-  if (nextQuestion === null && answeredQuestions !== 0) {
+    if (nextQuestion === null && answeredQuestions !== 0) {
 
-      awardScreen();
-      nextQuestion = document.querySelector(".award-screen")
+        awardScreen();
+        nextQuestion = document.querySelector(".award-screen")
 
-      setTimeout(scrollToNextQuestion, 2000)
+        setTimeout(scrollToNextQuestion, 2000)
 
-  }
+    }
 
-  else {
-      setTimeout(scrollToNextQuestion, 2000)
-  }
+    else {
+        setTimeout(scrollToNextQuestion, 2000)
+    }
 
-  function scrollToNextQuestion() {
-      nextQuestion.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
-  }
+    function scrollToNextQuestion() {
+        nextQuestion.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
+    }
 
-  answeredQuestions++;
+    answeredQuestions++;
 }
 
 
 function awardScreen() {
 
-  let pageContainer = document.querySelector(".container");
-  let numQuestions = loadedQuizzData.data.questions.length
-  let numLevels = loadedQuizzData.data.levels.length
-  let arrLevelsMinValue = [];
-  let answerPercentage = Math.round(100 * correctAnswers / numQuestions);
-  let indexLevel;
+    let pageContainer = document.querySelector(".container");
+    let numQuestions = loadedQuizzData.data.questions.length
+    let numLevels = loadedQuizzData.data.levels.length
+    let arrLevelsMinValue = [];
+    let answerPercentage = Math.round(100 * correctAnswers / numQuestions);
+    let indexLevel;
 
-  for (let i = 0; i < numLevels; i++) {
-      arrLevelsMinValue.push(loadedQuizzData.data.levels[i].minValue)
-  }
+    for (let i = 0; i < numLevels; i++) {
+        arrLevelsMinValue.push(loadedQuizzData.data.levels[i].minValue)
+    }
 
-  for (let i = 0; i < arrLevelsMinValue.length; i++) {
+    for (let i = 0; i < arrLevelsMinValue.length; i++) {
 
-      if (parseInt(arrLevelsMinValue[i]) <= answerPercentage) {
-          indexLevel = i
-      }
-  }
+        if (parseInt(arrLevelsMinValue[i]) <= answerPercentage) {
+            indexLevel = i
+        }
+    }
 
 
-  pageContainer.querySelector(".quizz-conteiner").innerHTML += `
+    pageContainer.querySelector(".quizz-conteiner").innerHTML += `
       <div class="question-card award-screen" data-identifier="question" data-identifier="quizz-result">
       <div style="background-color: #EC362D" class="question-title">
       <h1>${answerPercentage}% de acerto: ${loadedQuizzData.data.levels[indexLevel].title}</h1>
@@ -668,19 +929,19 @@ function awardScreen() {
 
 function resetQuizz() {
 
-  correctAnswers, answeredQuestions = 0;
-  loadedQuizzData = null;
+    correctAnswers, answeredQuestions = 0;
+    loadedQuizzData = null;
 
 
-  getQuizzByID(loadedQuizzID)
+    getQuizzByID(loadedQuizzID)
 }
 
 function backHomePage() {
-  correctAnswers, answeredQuestions = 0;
-  loadedQuizzData, loadedQuizzID = null;
+    correctAnswers, answeredQuestions = 0;
+    loadedQuizzData, loadedQuizzID = null;
 
-  document.querySelector("body").innerHTML = frontPage;
-  listQuizzesRequest();
-  listQuizzesInterval = setInterval(listQuizzesRequest, 1000);
+    document.querySelector("body").innerHTML = frontPage;
+    listQuizzesRequest();
+
 
 }

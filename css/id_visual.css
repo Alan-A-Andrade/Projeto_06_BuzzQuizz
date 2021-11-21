@@ -5,13 +5,14 @@
 
 body{
   font-family: 'Roboto', 'sans-serif';
-
+  display: flex;
+  justify-content: center;
   background-color: #FAFAFA;
 }
 
 .header{
   height: 69px;
-  width: 100%;
+  width: 100vw;
 
   background-color: #EC362D;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -19,6 +20,9 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: fixed;
+  z-index: 10;
 }
 
 .brand{
@@ -31,16 +35,22 @@ body{
 
 
 .container{
+  max-width: 1051px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 69px 0px 0px 0px;
 }
 
 .container .gerenal-content{
-  width: 1051px;
+  width: 100%;
 
   padding-bottom: 211px;
+}
+
+.user-quizzes h2{
+margin-left: 15px;
 }
 
 .container .user-quizzes .user-quizzes-none{
@@ -59,7 +69,12 @@ body{
   justify-content: center;
 }
 
+.user-quizzes-listed{
+width: 100%;
+}
+
 .container .user-quizzes .user-quizzes-listed{
+
   margin-top: 69px;
 }
 
@@ -119,27 +134,27 @@ body{
 }
 
 .user-quizzes-listed-all{
-  width: 1100px;
+  width: 100%;
 
   margin-bottom: 48px;
 
   display: flex;
   flex-wrap: wrap;
+  gap: 15px;
 }
 
 .all-quizzes-listed{
-  width: 1100px;
+  width: 100%;
 
   display: flex;
   flex-wrap: wrap;
+  gap:15px;
+  justify-content: center;
 }
 
 .user-quizzes-listed-all-quizz{
   width: 340px;
   height: 181px;
-
-  margin-right: 15px;
-  margin-bottom: 12px;
 
   position: relative;
 
@@ -149,10 +164,8 @@ body{
 .all-quizzes-quizz{
   width: 340px;
   height: 181px;
-
-  margin-right: 15px;
-  margin-bottom: 12px;
-
+  overflow: hidden;
+  text-overflow: ellipsis;
   position: relative;
 
   cursor: pointer;
@@ -250,7 +263,7 @@ body{
   font-size: 20px;
   line-height: 23px;
 
-  margin-bottom: 12px;
+  margin: 15px;
 
   color: #000000;
 }
@@ -528,7 +541,7 @@ body{
 }
 
 .banner-quizz{
-  width: 100%;
+  width: 100vw;
   max-height: 227px;
 
   background-color: black;
@@ -689,4 +702,105 @@ gap: 16px;
 line-height: 25px;
   color: #818181;
 
+}
+
+.set-levels{
+  width: 600px;
+
+  padding: 60px 0px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+
+
+}
+
+.set-levels h1{
+  font-style: normal;
+  font-weight: bold;
+  font-size: 23px;
+  line-height: 27px;
+
+  padding: 0px 20px 0px 0px;
+
+}
+
+.set-levels article{
+  width: 100%;
+
+  padding: 25px 18px;
+
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+
+  position: relative;
+}
+
+.set-levels article h1{
+  font-size: 20px;
+}
+
+.set-levels article input{
+  width: 564px;
+  height: 46px;
+  left: 436px;
+  top: 324px;
+
+  font-style: italic;
+  font-weight: normal;
+  font-size: 19px;
+  line-height: 22px;
+  color: #BABABA;
+
+  padding-left: 20px;
+  
+  background: #FFFFFF;
+  border: 1px solid #D1D1D1;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.set-levels article input::placeholder{
+  font-style: italic;
+  font-weight: normal;
+  font-size: 19px;
+  line-height: 22px;
+  color: #BABABA;
+
+}
+
+
+.set-levels article .create-icon{
+
+position: absolute;
+top: 27px;
+right: 20px;
+
+}
+
+.set-levels button{
+  width: 324px;
+  height: 52px;
+
+  background: #EC362D;
+  border: none;
+  border-radius: 15px;
+  
+  margin-top: 25px;
+  
+  font-size: 21px;
+  line-height: 25px;
+  color: #FFF5F4;
+}
+
+.hidden{
+  display: none;
 }
