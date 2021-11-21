@@ -307,7 +307,7 @@ function validateURL(url) {
 
 function listCreatedUserQuizz(quizzData) {
 
-    if (userCreatedQuizzId === null) {
+    if (userCreatedQuizzId == "") {
 
         document.querySelector(".user-quizzes-none").classList.remove("hidden")
         document.querySelector(".user-quizzes-listed").classList.add("hidden")
