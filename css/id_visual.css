@@ -328,6 +328,70 @@ body{
   color: #000000;
 }
 
+.create-quizz-questions-edit{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.create-quizz-questions-edit-hidden{
+  display: none;
+}
+
+.create-quizz-questions-edit-show{
+  display: initial;
+}
+
+.fa.fa-pencil-square-o.icon-edit{
+  font-size: 25px;
+
+  transition: all 0.5s ease-in-out;
+}
+
+.fa.fa-pencil-square-o.icon-edit:hover{
+  color: gray;
+
+  transition: all 0.5s ease-in-out;
+
+  cursor: pointer;
+}
+
+.create-quizzes-question-title{
+  margin-top: 10px;
+  margin-bottom: 12px;
+  margin-left: 5px;
+
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+
+  color: #000000;
+}
+
+.create-quizzes-question-title-correct-answer{
+  margin-top: 28px;
+  margin-bottom: 24px;
+  margin-left: 5px;
+
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+
+  color: #000000;
+}
+
+.create-quizzes-question-title-incorrect-answer{
+  margin-top: 28px;
+  margin-bottom: 14px;
+  margin-left: 5px;
+
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+
+  color: #000000;
+}
+
 .create-quizzes-inputs{
   display: flex;
   flex-direction: column;
@@ -338,6 +402,20 @@ body{
   padding: 20px;
   margin-top: 27px;
   margin-bottom: 85px;
+
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.create-quizz-question{
+  display: flex;
+  flex-direction: column;
+
+  width: 600px;
+
+  padding: 20px;
+  margin-top: 27px;
+  margin-bottom: 24px;
 
   background-color: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
@@ -363,11 +441,41 @@ body{
   color: #BABABA;
 }
 
+.create-quizzes-question-input{
+  background-color: #FFFFFF;
+
+  border-radius: 5px;
+  border: 1px solid #D1D1D1;
+
+  font-size: 19px;
+  line-height: 22px;
+  font-style: italic;
+
+  width: 490px;
+  height: 46px;
+
+  margin: auto;
+  margin-bottom: 14px;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  color: #BABABA;
+}
+
 .create-quizzes-input::placeholder{
   color: #BABABA;
 }
 
+.create-quizzes-question-input::placeholder{
+  color: #BABABA;
+}
+
+.mt-32{
+  margin-top: 32px;
+}
+
 .create-quizzes-button{
+  margin-top: 82px;
   margin-bottom: 435px;
 
   width: 368.86px;
