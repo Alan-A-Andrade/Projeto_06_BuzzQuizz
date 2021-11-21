@@ -1,5 +1,3 @@
-let listQuizzesInterval = setInterval(listQuizzesRequest, 10000);
-
 let correctAnswers = 0;
 let answeredQuestions = 0;
 let loadedQuizzData;
@@ -35,6 +33,8 @@ function listQuizzes(answerListQuizzes) {
     </div><!--all-quizzes-quizz-->        
     `;
     }
+
+    listCreatedUserQuizz();
 }
 
 function createQuizz() {
@@ -286,11 +286,116 @@ function validateURL(url) {
 }
 
 
+
+function listCreatedUserQuizz() {
+
+    if (userCreatedQuizzData == "") {
+
+        document.querySelector(".user-quizzes-none").classList.remove("hidden")
+        document.querySelector(".user-quizzes-listed").classList.add("hidden")
+    }
+
+    else {
+
+        document.querySelector(".user-quizzes-none").classList.add("hidden")
+        document.querySelector(".user-quizzes-listed").classList.remove("hidden")
+
+
+    }
+
+}
+
+let userCreatedQuizzData = []
+
+function storeUserCreatedQuizz() {
+
+
+    let obj = {
+        title: "Título do quizz",
+        image: "https://http.cat/411.jpg",
+        questions: [
+            {
+                title: "Título da pergunta 1",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Título da pergunta 2",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Título da pergunta 3",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+        ],
+        levels: [
+            {
+                title: "Título do nível 1",
+                image: "https://http.cat/411.jpg",
+                text: "Descrição do nível 1",
+                minValue: 0
+            },
+            {
+                title: "Título do nível 2",
+                image: "https://http.cat/412.jpg",
+                text: "Descrição do nível 2",
+                minValue: 50
+            }
+        ]
+    }
+
+    let promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", obj)
+    promise.then(tratarSucesso);
+    promise.catch(tratarErro);
+
+    function tratarSucesso(resposta) {
+        userCreatedQuizzData.push(resposta)
+    }
+
+    function tratarErro(erro) {
+        console.log("Status code: " + erro.response.status); // Ex: 404
+        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
+    }
+}
+
 function getQuizzByID(element) {
 
     loadedQuizzID = element
-
-    clearInterval(listQuizzesInterval);
 
     let pageContainer = document.querySelector(".container")
 
@@ -465,6 +570,6 @@ function backHomePage() {
 
     document.querySelector("body").innerHTML = frontPage;
     listQuizzesRequest();
-    listQuizzesInterval = setInterval(listQuizzesRequest, 1000);
+
 
 }
