@@ -19,7 +19,7 @@ function listQuizzesRequest() {
 function listQuizzes(answerListQuizzes) {
     let quizzes = answerListQuizzes.data;
     let quizzesListed = document.querySelector(".all-quizzes-listed");
-
+    quizzesListed.scrollIntoView()
     quizzesListed.innerHTML = "";
     for (let i = 0; i < quizzes.length; i++) {
         let quizz = quizzes[i];
@@ -908,6 +908,7 @@ function getQuizzByID(element) {
     loadedQuizzID = element
 
     let pageContainer = document.querySelector(".container")
+    pageContainer.scrollIntoView()
 
     askPromisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${element}`);
     askPromisse.then(promisseFulfilled);
@@ -1071,8 +1072,6 @@ function resetQuizz() {
     correctAnswers = 0
     answeredQuestions = 0;
     loadedQuizzData = null;
-
-
     getQuizzByID(loadedQuizzID)
 }
 
