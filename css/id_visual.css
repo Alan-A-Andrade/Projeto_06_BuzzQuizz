@@ -49,10 +49,6 @@ body{
   padding-bottom: 211px;
 }
 
-.user-quizzes h2{
-margin-left: 15px;
-}
-
 .container .user-quizzes .user-quizzes-none{
   width: 100%;
   height: 181px;
@@ -148,8 +144,7 @@ width: 100%;
 
   display: flex;
   flex-wrap: wrap;
-  gap:15px;
-  justify-content: center;
+  gap: 15px;
 }
 
 .user-quizzes-listed-all-quizz{
@@ -263,7 +258,7 @@ width: 100%;
   font-size: 20px;
   line-height: 23px;
 
-  margin: 15px;
+  margin-bottom: 15px;
 
   color: #000000;
 }

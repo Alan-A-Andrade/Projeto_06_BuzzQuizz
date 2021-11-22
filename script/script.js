@@ -199,7 +199,7 @@ function createQuizzQuestions(){
           <input type="text" class="create-quizzes-question-input create-quizz-text-question" placeholder="Texto da pergunta" required>
           
           <!--create-quizz-color-question-->
-          <input type="text" maxlength="7" onkeypress="maskColor(this)" class="create-quizzes-question-input create-quizz-color-question" placeholder="Cor de fundo da pergunta" required>
+          <input type="text" maxlength="7" onkeydown="maskColor(this)" onkeyup="maskColor(this)" onkeypress="maskColor(this)" class="create-quizzes-question-input create-quizz-color-question" placeholder="Cor de fundo da pergunta" required>
           
           
           <!--create-quizz-correct-answer-title-->
@@ -247,7 +247,7 @@ function createQuizzQuestions(){
           <input type="text" class="create-quizzes-question-input create-quizz-text-question" placeholder="Texto da pergunta" required>
           
           <!--create-quizz-color-question-->
-          <input type="text" maxlength="7" onkeypress="maskColor(this)" class="create-quizzes-question-input create-quizz-color-question" placeholder="Cor de fundo da pergunta" required>
+          <input type="text" maxlength="7" onkeydown="maskColor(this)" onkeyup="maskColor(this)" onkeypress="maskColor(this)" onkeypress="maskColor(this)" class="create-quizzes-question-input create-quizz-color-question" placeholder="Cor de fundo da pergunta" required>
           
           
           <!--create-quizz-correct-answer-title-->
@@ -307,8 +307,31 @@ function validationURL(elementURL, elementNumber, elementStr) {
     "z","0","1","2","3","4","5","6","7","8","9","-",".","_","~",":","/",
     "?","#","[","]","@","!","$","&","'","(",")","*","+",",",";","="
   ];
+  const arrayAcceptableImageFormat = ["jpeg", "gif", "png", "svg", "jpg"];
+  let url = elementURL.value;
+  let validURL = /^(ftp|http|https):\/\/[^ "]+$/.test(url);
 
-  if(elementURL.value !== null){
+  if(elementURL.value !== ""){
+    let validURLlink = false;
+    for (let i = 0; i < arrayAcceptableImageFormat.length; i++) {
+      console.log(arrayAcceptableImageFormat[i]);
+      console.log(elementURL.value.indexOf(arrayAcceptableImageFormat[i]));
+
+      if(validURLlink){
+        continue;
+      }else{
+        if(elementURL.value.indexOf(arrayAcceptableImageFormat[i]) !== -1){
+          console.log("URL é uma imagem válida suportada!");
+          validURLlink = true;
+        }
+  
+        if(i === arrayAcceptableImageFormat.length - 1 && validURLlink === false){
+          alert(`Campo de URL ${elementStr} está inválido na Pergunta ${[elementNumber]}, pois não é uma imagem ou é uma imagem com formato não suportado (os formatos suportados são: PNG, JPG, SVG, GIF e JPEG), informe uma imagem válida!`);
+          return;
+        }
+      }
+    }
+
     let iAcceptableCharacters = 0;
     for (let i = 0; i < elementURL.value.length; i++) {
       for (let j = 0; j < arrayAcceptableCharacters.length; j++) {
@@ -316,10 +339,43 @@ function validationURL(elementURL, elementNumber, elementStr) {
           iAcceptableCharacters = iAcceptableCharacters + 1;
         }
       }
+    }   
+    
+    if (iAcceptableCharacters !== elementURL.value.length) {
+      alert(`Campo de URL ${elementStr} está inválido na Pergunta ${[elementNumber]}, pois existem caracteres inválidos, informe uma URL válida!`);
+      return;
+    }
+
+    if (validURL === true) {
+      console.log("URL válida!");
+      return validURL;
+    } else {
+      alert(`Campo de URL ${elementStr} está inválido na Pergunta ${[elementNumber]}, pois não foi possível acessar a mesma, informe uma URL válida!`);
+      return;
+    }
+  }
+}
+
+function validationColorHex(elementColorHex, elementNumber) {
+  const arrayAcceptableCharacters = [
+    "0","1","2","3","4","5","6","7","8","9",
+    "A","B","C","D","E","F",
+    "a","b","c","d","e","f",
+    "#"
+  ];
+
+  if(elementColorHex.value !== null){
+    let iAcceptableCharacters = 0;
+    for (let i = 0; i < elementColorHex.value.length; i++) {
+      for (let j = 0; j < arrayAcceptableCharacters.length; j++) {
+        if (elementColorHex.value[i] === arrayAcceptableCharacters[j]) {
+          iAcceptableCharacters = iAcceptableCharacters + 1;
+        }
+      }
     }
   
-    if (iAcceptableCharacters !== elementURL.value.length) {
-      alert(`Campo de URL ${elementStr} inválida na Pergunta ${[elementNumber]}, informe uma URL válida!`);
+    if (iAcceptableCharacters !== elementColorHex.value.length) {
+      alert(`Campo de color Hexadecimal está inválido na Pergunta ${[elementNumber]}, informe uma cor hexadecimal válida!`);
       return;
     }
   }
@@ -341,11 +397,20 @@ function createArrayQuizzQuestions(numberQuestions){
       return;
     }
 
+    validationURL(questionForm.querySelector(".create-quizz-correct-answer-url"), i, "Resposta correta");
+
     //Color field " " validation
-    if(questionForm.querySelector(".create-quizz-color-question").value === ""){
-      alert(`Reveja o campo de cor da Pergunta ${[i]}, não pode ser vazio!`);
-      return;      
+    if(questionForm.querySelector(".create-quizz-color-question").value === "" || questionForm.querySelector(".create-quizz-color-question").value.length < 7){
+      if(questionForm.querySelector(".create-quizz-color-question").value === ""){
+        alert(`Reveja o campo de cor da Pergunta ${[i]}, não pode ser vazio!`);
+        return; 
+      }else{
+        alert(`Reveja o campo de cor da Pergunta ${[i]}, não menos do que 7 caracteres!`);
+        return; 
+      }
     }
+
+    validationColorHex(questionForm.querySelector(".create-quizz-color-question"), i);
 
     //Answers & URL fields " " validation
     if(questionForm.querySelector(".create-quizz-correct-answer").value === "" ||
@@ -456,7 +521,6 @@ function createArrayQuizzQuestions(numberQuestions){
       }   
     }
     
-    validationURL(questionForm.querySelector(".create-quizz-correct-answer-url"), i, "Resposta correta");
     validationURL(questionForm.querySelector(".create-quizz-incorrect-answer1-url"), i, "Resposta incorreta 1");
     validationURL(questionForm.querySelector(".create-quizz-incorrect-answer2-url"), i, "Resposta incorreta 2");
     validationURL(questionForm.querySelector(".create-quizz-incorrect-answer3-url"), i, "Resposta incorreta 3");
@@ -805,8 +869,6 @@ if (userCreatedQuizzId === null) {
 }
 
 function storeUserCreatedQuizz(resposta) {
-  console.log("entrei!!");
-
     userCreatedQuizzData.push(resposta.data)
     userCreatedQuizzId.push(resposta.data.id)
     userCreatedQuizzSecretKey[resposta.data.id] = resposta.data.key
@@ -819,7 +881,6 @@ function storeUserCreatedQuizz(resposta) {
     localStorage.setItem("data", userCreatedQuizzDataStringified)
     localStorage.setItem("id", userCreatedQuizzIdStringified)
     localStorage.setItem("UniqueKey", userCreatedQuizzSecretKeyStringified)
-
 }
 
 
