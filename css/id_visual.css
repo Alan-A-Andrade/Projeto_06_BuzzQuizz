@@ -342,6 +342,13 @@ width: 100%;
   color: #000000;
 }
 
+.create-quizzes form{
+  width: 600px;
+  gap: 10px;
+  padding: 24px 20px;
+
+}
+
 .create-quizz-questions-edit{
   display: flex;
   align-items: center;
