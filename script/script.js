@@ -609,7 +609,7 @@ function CreateQuizzLevelsArray(numLevels) {
         }
 
         else if (userLevel.querySelector(".level-text").value.length < 30) {
-            alert("Título do nível: mínimo de 30 caracteres")
+            alert("Descrição do nível: mínimo de 30 caracteres")
             arrCreatedLevels = []
             return;
         }
@@ -710,7 +710,7 @@ function sendCreatedQuizzFailure(errorSendCreatedQuizz) {
     console.log(errorSendCreatedQuizz.response);
 
     alert(`Não foi possível enviar seu quizz, em virturde de ter ocorrido um erro ${errorSendCreatedQuizz.response.status}`);
-    window.location.reload(true);
+    backHomePage();
 }
 
 function validateURL(url) {

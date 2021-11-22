@@ -35,7 +35,7 @@ body{
 
 
 .container{
-  max-width: 1051px;
+  max-width: 1100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,8 +45,8 @@ body{
 
 .container .gerenal-content{
   width: 100%;
+  padding: 0px 15px 211px 15px;
 
-  padding-bottom: 211px;
 }
 
 .user-quizzes h2{
@@ -226,7 +226,7 @@ width: 100%;
 
   border: none;
 
-  border-radius: 500px;
+  border-radius: 50px;
 
   font-size: 25px;
 
@@ -1041,4 +1041,81 @@ height: 1.45em;
 
 .hidden{
   display: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+  *{
+    white-space: nowrap;
+    overflow: none;
+    text-overflow: ellipsis;
+   }
+
+
+  .container{
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 69px 0px 0px 0px;
+  }
+  
+  .container .gerenal-content{
+    width: 100%;
+    padding: 0px 15px 211px 15px;
+  
+  }
+  .created-quizz-success-quizz, .created-quizz-success-quizz-bg, .created-quizz-success-quizz-degrade {
+
+    width: 100%;
+  }
+
+  .question-card{
+    width: 100%;
+  
+    display: flex;
+    flex-wrap: wrap;
+  
+    padding: 35px;
+  
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .banner-quizz h1, .question-title h1{
+    font-size: 19px;
+    line-height: 22px;
+  }
+
+  .answer-card h1{
+    font-size: 13px;
+  }
+
+  .img-text-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap:20px
+  
+  }
+
+  .award-screen .question-title h1{
+    font-size: 19px;
+  }
+
+  .award-screen img{
+    width: 100%;
+  }
+
+  .award-screen h1{
+    width: 100%;
+    font-size: 17px;
+    text-align: center;
+  }
+
 }
