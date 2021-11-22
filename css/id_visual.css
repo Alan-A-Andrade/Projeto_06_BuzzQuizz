@@ -22,7 +22,7 @@ body{
   justify-content: center;
 
   position: fixed;
-  z-index: 10;
+  z-index: 100;
 }
 
 .brand{
@@ -1004,6 +1004,39 @@ object-fit: none;
 
 z-index: 15;
 
+}
+
+.now-loading{
+width: 100vw;
+height: 100vh;
+
+background-color: #FFFFFF;
+
+position: fixed;
+
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;
+z-index: 50;
+}
+
+.now-loading img{
+  width: 8vw;
+  height: 10vw;
+  object-fit: cover;
+
+
+  z-index: 51;
+}
+
+.now-loading h1{
+height: 1.45em;
+ font-size: 10vw;
+ color: #EC362D;
+ font-weight: bolder;
+
+ z-index: 52;
 }
 
 .hidden{

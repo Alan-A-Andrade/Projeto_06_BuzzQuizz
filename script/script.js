@@ -13,6 +13,7 @@ listQuizzesRequest();
 function listQuizzesRequest() {
     promisseGetQuizzes = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     promisseGetQuizzes.then(listQuizzes);
+    promisseGetQuizzes.then(nowLoading)
 }
 
 function listQuizzes(answerListQuizzes) {
@@ -661,10 +662,12 @@ function sendCreatedQuizz(createdQuizzTitle, createdQuizzImage, createdQuizzArra
     createdQuizzUser["levels"] = createdQuizzArrayLevels;
 
     console.log(createdQuizzUser);
+    nowLoading();
 
     promisseSendCreatedQuizz = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizzUser);
     promisseSendCreatedQuizz.then(sendCreatedQuizzSucess);
     promisseSendCreatedQuizz.then(storeUserCreatedQuizz);
+    promisseSendCreatedQuizz.then(nowLoading)
     promisseSendCreatedQuizz.catch(sendCreatedQuizzFailure);
 }
 
@@ -816,7 +819,7 @@ function deleteQuizz(quizzID) {
 
 
     if (confirm('Tem certeza que deseja deletar esse quizz?')) {
-
+        nowLoading()
         let objDelete =
         {
             headers: { "Secret-Key": userCreatedQuizzSecretKey[quizzID] },
@@ -826,6 +829,7 @@ function deleteQuizz(quizzID) {
 
 
         promisse.then(promisseSucess);
+        promisse.then(nowLoading())
         promisse.catch(promisseFail)
 
 
@@ -900,13 +904,14 @@ function storeUserCreatedQuizz(resposta) {
 
 
 function getQuizzByID(element) {
-
+    nowLoading()
     loadedQuizzID = element
 
     let pageContainer = document.querySelector(".container")
 
     askPromisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${element}`);
     askPromisse.then(promisseFulfilled);
+    askPromisse.then(nowLoading);
     askPromisse.catch(promisseFail);
 
     function promisseFulfilled(answer) {
@@ -1079,5 +1084,12 @@ function backHomePage() {
     document.querySelector("body").innerHTML = frontPage;
     listQuizzesRequest();
 
+
+}
+
+function nowLoading() {
+
+    let nowLoadingDiv = document.querySelector(".now-loading");
+    nowLoadingDiv.classList.toggle("hidden")
 
 }
