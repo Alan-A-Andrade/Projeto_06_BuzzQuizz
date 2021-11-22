@@ -302,6 +302,7 @@ function viewQuestion(iconEdit) {
     iconEdit.parentNode.classList.add("create-quizz-questions-edit-hidden");
     iconEdit.parentNode.parentNode.children[1].classList.remove("create-quizz-questions-edit-hidden");
     iconEdit.parentNode.parentNode.children[1].classList.remove("create-quizz-questions-edit-show");
+    iconEdit.parentNode.parentNode.children[1].classList.add("flex-direction-column");
 }
 
 function validationURL(elementURL, elementNumber, elementStr) {
@@ -543,7 +544,7 @@ function createQuizzSetLevelsPage(numLevels) {
   <input class="level-Title" placeholder="Título do nível"></input>
   <input class="level-MinValue" placeholder="% de acerto mínima"></input>
   <input class="level-imgURL" placeholder="URL da imagem do nível"></input>
-  <input class="level-text"placeholder="Descrição do nível"></input>
+  <textarea class="level-text"placeholder="Descrição do nível"></textarea>
   </article>
 
 </section>
@@ -559,7 +560,7 @@ function createQuizzSetLevelsPage(numLevels) {
     <input class="level-Title hidden" placeholder="Título do nível"></input>
     <input class="level-MinValue hidden" placeholder="% de acerto mínima"></input>
     <input class="level-imgURL hidden" placeholder="URL da imagem do nível"></input>
-    <input class="level-text hidden"placeholder="Descrição do nível"></input>
+    <textarea class="level-text hidden"placeholder="Descrição do nível"></textarea>
     </article>
     `
     }
@@ -577,6 +578,8 @@ function expandInput(element) {
         arrayHiddenInput[i].classList.remove("hidden")
 
     }
+
+    element.closest("article").querySelector("textarea").classList.remove("hidden")
 
     element.classList.add("hidden")
 
