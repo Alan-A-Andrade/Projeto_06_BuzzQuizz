@@ -3,6 +3,8 @@ let answeredQuestions = 0;
 let loadedQuizzData;
 let loadedQuizzID;
 const frontPage = document.querySelector("body").innerHTML;
+let editMode = false
+let failPut;
 
 let userCreatedQuizzData = JSON.parse(localStorage.getItem("data"))
 let userCreatedQuizzId = JSON.parse(localStorage.getItem("id"))
@@ -204,7 +206,7 @@ function createQuizzQuestions() {
 
   validationURL(createQuizzURL, createQuizzURLFeedback);
   let urlInputInvalid = document.querySelector(".create-quizz-url.invalid-input");
-  console.log(urlInputInvalid);
+
   if (urlInputInvalid !== null) {
     return;
   }
@@ -235,7 +237,6 @@ function createQuizzQuestions() {
   createQuizzLevelsFeedback.classList.add("hidden");
 
 
-  setTimeout(function () { alert("Campos preenchidos corretamente!"); }, 100);
 
   titleQuizzInput = createQuizzTitle.value;
   URLQuizzInput = createQuizzURL.value;
@@ -401,14 +402,13 @@ function validationURL(elementURL, elementURLFeedback) {
     let validURL = /^(ftp|http|https):\/\/[^ "]+$/.test(url);
 
     for (let i = 0; i < arrayAcceptableImageFormat.length; i++) {
-      console.log(arrayAcceptableImageFormat[i]);
-      console.log(elementURL.value.indexOf(arrayAcceptableImageFormat[i]));
+
 
       if (validURLlink) {
         continue;
       } else {
         if (elementURL.value.indexOf(arrayAcceptableImageFormat[i]) !== -1) {
-          console.log("URL é uma imagem válida suportada!");
+
           validURLlink = true;
         }
 
@@ -448,7 +448,7 @@ function validationURL(elementURL, elementURLFeedback) {
     elementURLFeedback.classList.add("hidden");
 
     if (validURL === true) {
-      console.log("URL válida!");
+
       return validURL;
     } else {
       elementURLFeedback.innerHTML = "";
@@ -501,7 +501,7 @@ function createArrayQuizzQuestions(numberQuestions) {
   let arrayAnswers = [];
   arrayCreatedQuestions = [];
   for (let i = 1; i <= numberQuestions; i++) {
-    console.log(i);
+
     let questionForm = document.querySelector(`form:nth-child(${[i]})`);
 
     let textQuizzQuestion = document.querySelector(`.create-quizz-text-question${i}`);
@@ -771,13 +771,13 @@ function createArrayQuizzQuestions(numberQuestions) {
     }
 
     if (correctAnswerURLQuizzQuestion !== null) {
-      console.log("Teste 1 - função");
+
       validationURL(correctAnswerURLQuizzQuestion, correctAnswerURLQuizzQuestionFeedback);
-      console.log(validURLlink);
+
       let urlInvalidCorrectAnswer = document.querySelector(`.create-quizzes-question-input.create-quizz-correct-answer-url.create-quizz-correct-answer-url${i}.invalid-input`);
-      console.log(urlInvalidCorrectAnswer);
+
       if (urlInvalidCorrectAnswer !== null) {
-        console.log("Teste 1");
+
         return;
       } else {
         validationURL(correctAnswerURLQuizzQuestion, correctAnswerURLQuizzQuestionFeedback);
@@ -785,13 +785,13 @@ function createArrayQuizzQuestions(numberQuestions) {
     }
 
     if (incorrectAnswer1URLQuizzQuestion !== null) {
-      console.log("Teste 2 - função");
+
       validationURL(incorrectAnswer1URLQuizzQuestion, incorrectAnswer1URLQuizzQuestionFeedback);
-      console.log(validURLlink);
+
       let urlInvalidIncorrectAnswer1 = document.querySelector(`.create-quizzes-question-input.create-quizz-incorrect-answer1-url.create-quizz-incorrect-answer1-${i}-url.invalid-input`);
-      console.log(urlInvalidIncorrectAnswer1);
+
       if (urlInvalidIncorrectAnswer1 !== null) {
-        console.log("Teste 2");
+
         return;
       } else {
         validationURL(incorrectAnswer1URLQuizzQuestion, incorrectAnswer1URLQuizzQuestionFeedback);
@@ -799,13 +799,13 @@ function createArrayQuizzQuestions(numberQuestions) {
     }
 
     if (incorrectAnswer2URLQuizzQuestion !== null) {
-      console.log("Teste 3 - função");
+
       validationURL(incorrectAnswer2URLQuizzQuestion, incorrectAnswer2URLQuizzQuestionFeedback);
-      console.log(validURLlink);
+
       let urlInvalidIncorrectAnswer2 = document.querySelector(`.create-quizzes-question-input.create-quizz-incorrect-answer2-url.create-quizz-incorrect-answer2-${i}-url.invalid-input`);
-      console.log(urlInvalidIncorrectAnswer2);
+
       if (urlInvalidIncorrectAnswer2 !== null) {
-        console.log("Teste 3");
+
         return;
       } else {
         validationURL(incorrectAnswer2URLQuizzQuestion, incorrectAnswer2URLQuizzQuestionFeedback);
@@ -813,13 +813,13 @@ function createArrayQuizzQuestions(numberQuestions) {
     }
 
     if (incorrectAnswer3URLQuizzQuestion != null) {
-      console.log("Teste 4 - função");
+
       validationURL(incorrectAnswer3URLQuizzQuestion, incorrectAnswer3URLQuizzQuestionFeedback);
-      console.log(validURLlink);
+
       let urlInvalidIncorrectAnswer3 = document.querySelector(`.create-quizzes-question-input.create-quizz-incorrect-answer3-url.create-quizz-incorrect-answer3-${i}-url.invalid-input`);
-      console.log(urlInvalidIncorrectAnswer3);
+
       if (urlInvalidIncorrectAnswer3 !== null) {
-        console.log("Teste 4");
+
         return;
       } else {
         validationURL(incorrectAnswer3URLQuizzQuestion, incorrectAnswer3URLQuizzQuestionFeedback);
@@ -882,10 +882,6 @@ function createArrayQuizzQuestions(numberQuestions) {
     }
   }
 
-  console.log(objectCreatedQuestion);
-  console.log(arrayCreatedQuestions);
-  setTimeout(function () { alert("Campos preenchidos corretamente!"); }, 100);
-
   createQuizzSetLevelsPage(levelsQuizzInput);
 }
 
@@ -933,6 +929,23 @@ function createQuizzSetLevelsPage(numLevels) {
       `
   }
   sectionLevel.innerHTML += `<button onclick="CreateQuizzLevelsArray(${numLevels})">Finalizar Quizz</button>`
+
+  if (editMode == true) {
+
+    for (let i = 0; i < loadedQuizzData.data.levels.length; i++) {
+
+      document.querySelector(`article:nth-of-type(${i + 1}) input:nth-of-type(1)`).value = loadedQuizzData.data.levels[i].title
+      document.querySelector(`article:nth-of-type(${i + 1}) input:nth-of-type(2)`).value = loadedQuizzData.data.levels[i].minValue
+      document.querySelector(`article:nth-of-type(${i + 1}) input:nth-of-type(3)`).value = loadedQuizzData.data.levels[i].image
+      document.querySelector(`article:nth-of-type(${i + 1}) textarea`).value = loadedQuizzData.data.levels[i].text
+
+
+    }
+
+
+  }
+
+
 }
 
 //expand inputs on levels creation
@@ -962,7 +975,7 @@ function CreateQuizzLevelsArray(numLevels) {
 
   let minValueZeroPercente = false
 
-  console.log(numLevels)
+
 
   let cleanPage = false;
 
@@ -984,7 +997,7 @@ function CreateQuizzLevelsArray(numLevels) {
     }
 
     verified = true
-    console.log(i)
+
 
     if (userLevel.querySelector(".level-Title") === null || userLevel.querySelector(".level-Title").value.length < 10 || userLevel.querySelector(".level-Title").value.length === "") {
       userLevel.querySelector(`h2:nth-of-type(${1})`).classList.remove("hidden")
@@ -1066,7 +1079,7 @@ function CreateQuizzLevelsArray(numLevels) {
       return;
     }
 
-    console.log(arrCreatedLevels)
+
     sendCreatedQuizz(titleQuizzInput, URLQuizzInput, arrayCreatedQuestions, arrCreatedLevels);
   }
 
@@ -1080,18 +1093,86 @@ function sendCreatedQuizz(createdQuizzTitle, createdQuizzImage, createdQuizzArra
   createdQuizzUser["questions"] = createdQuizzArrayQuestions;
   createdQuizzUser["levels"] = createdQuizzArrayLevels;
 
-  console.log(createdQuizzUser);
-  nowLoading();
+  if (editMode == true) {
 
-  promisseSendCreatedQuizz = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizzUser);
-  promisseSendCreatedQuizz.then(sendCreatedQuizzSucess);
-  promisseSendCreatedQuizz.then(storeUserCreatedQuizz);
-  promisseSendCreatedQuizz.then(nowLoading)
-  promisseSendCreatedQuizz.catch(sendCreatedQuizzFailure);
+    nowLoading();
+
+    promisseSendCreatedQuizz = axios.put(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${loadedQuizzData.data.id}`, createdQuizzUser, { headers: `Secret-Key": userCreatedQuizzSecretKey[loadedQuizzData.data.id]` });
+    promisseSendCreatedQuizz.then(sendEditQuizzFailure);
+    promisseSendCreatedQuizz.then(sendEditQuizzFailure)
+    promisseSendCreatedQuizz.then(sendEditQuizzFailure);
+    promisseSendCreatedQuizz.then(sendEditQuizzFailure)
+    promisseSendCreatedQuizz.catch(sendEditQuizzFailure);
+
+    function promisseSucessEditDeleteLocal() {
+      const index = userCreatedQuizzId.indexOf(quizzID);
+
+      if (index > -1) {
+        userCreatedQuizzId.splice(index, 1);
+      }
+
+      delete userCreatedQuizzData[index];
+      delete userCreatedQuizzSecretKey[quizzID];
+
+
+      let userCreatedQuizzDataStringified;
+      let userCreatedQuizzIdStringified;
+      let userCreatedQuizzSecretKeyStringified;
+
+
+      userCreatedQuizzDataStringified = JSON.stringify(userCreatedQuizzData)
+      userCreatedQuizzIdStringified = JSON.stringify(userCreatedQuizzId)
+      userCreatedQuizzSecretKeyStringified = JSON.stringify(userCreatedQuizzSecretKey)
+
+      localStorage.setItem("data", userCreatedQuizzDataStringified)
+      localStorage.setItem("id", userCreatedQuizzIdStringified)
+      localStorage.setItem("UniqueKey", userCreatedQuizzSecretKeyStringified)
+
+    }
+
+    function storeUserEditQuizz(resposta) {
+      userCreatedQuizzData.push(resposta.data)
+      userCreatedQuizzId.push(resposta.data.id)
+      userCreatedQuizzSecretKey[resposta.data.id] = resposta.data.key
+
+      let userCreatedQuizzDataStringified;
+      let userCreatedQuizzIdStringified;
+      let userCreatedQuizzSecretKeyStringified;
+
+
+      userCreatedQuizzDataStringified = JSON.stringify(userCreatedQuizzData)
+      userCreatedQuizzIdStringified = JSON.stringify(userCreatedQuizzId)
+      userCreatedQuizzSecretKeyStringified = JSON.stringify(userCreatedQuizzSecretKey)
+
+      localStorage.setItem("data", userCreatedQuizzDataStringified)
+      localStorage.setItem("id", userCreatedQuizzIdStringified)
+      localStorage.setItem("UniqueKey", userCreatedQuizzSecretKeyStringified)
+    }
+
+    function sendEditQuizzFailure(answer) {
+      failPut = answer
+    }
+
+
+  }
+
+  else {
+
+    nowLoading();
+
+    promisseSendCreatedQuizz = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizzUser);
+    promisseSendCreatedQuizz.then(sendCreatedQuizzSucess);
+    promisseSendCreatedQuizz.then(storeUserCreatedQuizz);
+    promisseSendCreatedQuizz.then(nowLoading)
+    promisseSendCreatedQuizz.catch(sendCreatedQuizzFailure);
+
+  }
+
 }
 
+
 function sendCreatedQuizzSucess(answerSendCreatedQuizz) {
-  console.log(answerSendCreatedQuizz.data);
+
 
   let arrayQuizzCreated = answerSendCreatedQuizz.data;
 
@@ -1211,8 +1292,358 @@ function listCreatedUserQuizz(quizzData) {
 }
 
 function editQuizz(quizzID) {
-  alert("Clicou em Editar")
+
+  nowLoading();
+
+  askPromisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`);
+  askPromisse.then(promisseFulfilled);
+  askPromisse.then(nowLoading);
+  askPromisse.catch(promisseFail);
+
+  function promisseFulfilled(answer) {
+
+    loadedQuizzData = answer
+    editMode = true
+    createQuizzEditMode()
+
+  }
+
+  function promisseFail(answer) {
+    editMode = false
+    console.log(answer);
+
+  }
+
+
+
+  function createQuizzEditMode() {
+    let pageContainer = document.querySelector(".container");
+    pageContainer.innerHTML = "";
+    pageContainer.innerHTML = `
+  <section class="create-quizzes">
+    <!--create-quizzes-title-->
+    <h2 class="create-quizzes-title">Comece pelo começo</h2>
+    <!--create-quizzes-inputs-->
+    <form class="create-quizzes-inputs">
+      <!--create-quizzes-input-->
+      <input type="text" class="create-quizzes-input create-quizz-title" placeholder="Título do seu quizz" required>
+      <p class="create-quizz-title-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
+      <!--create-quizzes-input-->
+      <input type="url" class="create-quizzes-input create-quizz-url" placeholder="URL da imagem do seu quizz" required>
+      <p class="create-quizz-url-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
+      <!--create-quizzes-input-->      
+      <input type="number" min="0" class="create-quizzes-input create-quizz-questions" placeholder="Quantidade de perguntas do quizz" required>
+      <p class="create-quizz-questions-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
+      <!--create-quizzes-input-->
+      <input type="number" min="0" class="create-quizzes-input create-quizz-levels" placeholder="Quantidade de níveis do quizz" required>
+      <p class="create-quizz-levels-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
+    </form>
+    <!--create-quizzes-button-->
+    <button class="create-quizzes-button" onclick="createQuizzQuestionsEditMode()">Prosseguir pra criar perguntas</button>
+  <section><!--create-quizzes-->
+  `;
+
+
+    document.querySelector(".create-quizz-title").value = loadedQuizzData.data.title
+    document.querySelector(".create-quizz-url").value = loadedQuizzData.data.image
+    document.querySelector(".create-quizz-questions").value = loadedQuizzData.data.questions.length
+    document.querySelector(".create-quizz-levels").value = loadedQuizzData.data.levels.length
+
+  }
+
 }
+
+function createQuizzQuestionsEditMode() {
+  let pageContainer = document.querySelector(".container");
+  const createQuizzTitle = document.querySelector(".create-quizz-title");
+  const createQuizzURL = document.querySelector(".create-quizz-url");
+  const createQuizzQuestions = document.querySelector(".create-quizz-questions");
+  const createQuizzLevels = document.querySelector(".create-quizz-levels");
+
+  console.log(createQuizzQuestions.value)
+
+  const createQuizzTitleFeedback = document.querySelector(".create-quizz-title-feedback");
+  const createQuizzURLFeedback = document.querySelector(".create-quizz-url-feedback");
+  const createQuizzQuestionsFeedback = document.querySelector(".create-quizz-questions-feedback");
+  const createQuizzLevelsFeedback = document.querySelector(".create-quizz-levels-feedback");
+
+  createQuizzInputsEmpytValidation = (createQuizzTitle.value === "" || createQuizzURL.value === "" ||
+    createQuizzQuestions.value === "" || createQuizzLevels.value === "");
+  createQuizzInputTitleValidation = (createQuizzTitle.value.length < 20 || createQuizzTitle.value.length > 65);
+  createQuizzInputQuestionsValidation = (createQuizzQuestions.value < 3);
+  createQuizzInputLevelsValidation = (createQuizzLevels.value < 2);
+
+  if (createQuizzInputsEmpytValidation) {
+    if (createQuizzTitle.value !== "") {
+      createQuizzTitleFeedback.innerHTML = "";
+      createQuizzTitle.classList.remove("invalid-input");
+      createQuizzTitleFeedback.classList.add("hidden");
+    } else {
+      createQuizzTitleFeedback.innerHTML = "";
+      createQuizzTitleFeedback.innerHTML = "Este campo é obrigatório!";
+      createQuizzTitle.classList.add("invalid-input");
+      createQuizzTitleFeedback.classList.remove("hidden");
+    }
+
+    if (createQuizzURL.value !== "") {
+      createQuizzURLFeedback.innerHTML = "";
+      createQuizzURL.classList.remove("invalid-input");
+      createQuizzURLFeedback.classList.add("hidden");
+    } else {
+      createQuizzURLFeedback.innerHTML = "";
+      createQuizzURLFeedback.innerHTML = "Este campo é obrigatório!";
+      createQuizzURL.classList.add("invalid-input");
+      createQuizzURLFeedback.classList.remove("hidden");
+    }
+
+    if (createQuizzQuestions.value !== "") {
+      createQuizzQuestionsFeedback.innerHTML = "";
+      createQuizzQuestions.classList.remove("invalid-input");
+      createQuizzQuestionsFeedback.classList.add("hidden");
+    } else {
+      createQuizzQuestionsFeedback.innerHTML = "";
+      createQuizzQuestionsFeedback.innerHTML = "Este campo é obrigatório!";
+      createQuizzQuestions.classList.add("invalid-input");
+      createQuizzQuestionsFeedback.classList.remove("hidden");
+    }
+
+    if (createQuizzLevels.value !== "") {
+      createQuizzLevelsFeedback.innerHTML = "";
+      createQuizzLevels.classList.remove("invalid-input");
+      createQuizzLevelsFeedback.classList.add("hidden");
+    } else {
+      createQuizzLevelsFeedback.innerHTML = "";
+      createQuizzLevelsFeedback.innerHTML = "Este campo é obrigatório!";
+      createQuizzLevels.classList.add("invalid-input");
+      createQuizzLevelsFeedback.classList.remove("hidden");
+    }
+
+    return;
+  }
+  createQuizzTitleFeedback.innerHTML = "";
+  createQuizzTitle.classList.remove("invalid-input");
+  createQuizzTitleFeedback.classList.add("hidden");
+
+  createQuizzURLFeedback.innerHTML = "";
+  createQuizzURL.classList.remove("invalid-input");
+  createQuizzURLFeedback.classList.add("hidden");
+
+  createQuizzQuestionsFeedback.innerHTML = "";
+  createQuizzQuestions.classList.remove("invalid-input");
+  createQuizzQuestionsFeedback.classList.add("hidden");
+
+  createQuizzLevelsFeedback.innerHTML = "";
+  createQuizzLevels.classList.remove("invalid-input");
+  createQuizzLevelsFeedback.classList.add("hidden");
+
+
+  if (createQuizzInputTitleValidation) {
+    if (createQuizzTitle.value.length < 20) {
+      createQuizzTitleFeedback.innerHTML = "";
+      createQuizzTitleFeedback.innerHTML = "Campo do Título menor do que 20 caracteres!";
+      createQuizzTitle.classList.add("invalid-input");
+      createQuizzTitleFeedback.classList.remove("hidden");
+
+      return;
+    } else {
+      createQuizzTitleFeedback.innerHTML = "";
+      createQuizzTitleFeedback.innerHTML = "Campo do Título maior do que 65 caracteres!";
+
+      createQuizzTitle.classList.add("invalid-input");
+      createQuizzTitleFeedback.classList.remove("hidden");
+
+      return;
+    }
+  }
+  createQuizzTitleFeedback.innerHTML = "";
+  createQuizzTitle.classList.remove("invalid-input");
+  createQuizzTitleFeedback.classList.add("hidden");
+
+  validationURL(createQuizzURL, createQuizzURLFeedback);
+  let urlInputInvalid = document.querySelector(".create-quizz-url.invalid-input");
+  if (urlInputInvalid !== null) {
+    return;
+  }
+
+  if (createQuizzInputQuestionsValidation) {
+    createQuizzQuestionsFeedback.innerHTML = "";
+    createQuizzQuestionsFeedback.innerHTML = "Campo de Perguntas no mínimo 3!";
+    createQuizzQuestions.classList.add("invalid-input");
+    createQuizzQuestionsFeedback.classList.remove("hidden");
+
+    return;
+  }
+  createQuizzQuestionsFeedback.innerHTML = "";
+  createQuizzQuestions.classList.remove("invalid-input");
+  createQuizzQuestionsFeedback.classList.add("hidden");
+
+
+  if (createQuizzInputLevelsValidation) {
+    createQuizzLevelsFeedback.innerHTML = "";
+    createQuizzLevelsFeedback.innerHTML = "Campo de Níveis no mínimo 2!";
+    createQuizzLevels.classList.add("invalid-input");
+    createQuizzLevelsFeedback.classList.remove("hidden");
+
+    return;
+  }
+  createQuizzLevelsFeedback.innerHTML = "";
+  createQuizzLevels.classList.remove("invalid-input");
+  createQuizzLevelsFeedback.classList.add("hidden");
+
+
+
+
+  titleQuizzInput = createQuizzTitle.value;
+  URLQuizzInput = createQuizzURL.value;
+  questionsQuizzInput = createQuizzQuestions.value;
+  levelsQuizzInput = createQuizzLevels.value;
+
+  pageContainer.innerHTML = "";
+  pageContainer.innerHTML = `
+<section class="create-quizzes">
+  <!--create-quizzes-title-->
+  <h2 class="create-quizzes-title">Crie suas perguntas</h2>
+  <div class="create-quizz-questions-content">
+  </div><!--create-quizz-questions-content-->
+  <!--create-quizzes-button-->
+  <button class="create-quizzes-button" onclick="createArrayQuizzQuestions()">Prosseguir pra criar níveis</button>
+<section><!--create-quizzes-->
+`;
+
+  console.log(questionsQuizzInput)
+
+  const createQuizzQuestionsContent = document.querySelector(".create-quizz-questions-content");
+  for (let i = 1; i <= questionsQuizzInput; i++) {
+    if (i === 1) {
+      createQuizzQuestionsContent.innerHTML += `
+    <!--create-quizz-question-->
+    <form class="create-quizz-question question${i}">
+      <div class="create-quizz-questions-edit create-quizz-questions-edit-hidden">
+        <!--create-quizz-correct-question-title-->
+        <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
+
+        <!--create-icon-->
+        <img onclick="viewQuestion(this)" class="create-icon" src="./assets/Icons/create-icon.png">
+      </div><!--create-quizz-questions-edit-->
+      <div class="create-quizz-questions-edit-show">
+        <!--create-quizz-correct-question-title-->
+        <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
+        
+        <!--create-quizz-text-question-->
+        <input type="text" class="create-quizzes-question-input create-quizz-text-question create-quizz-text-question${i}" placeholder="Texto da pergunta" required>
+        <p class="create-quizz-text-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <!--create-quizz-color-question-->
+        <input type="text" maxlength="7" onkeydown="maskColor(this)" onkeyup="maskColor(this)" onkeypress="maskColor(this)" class="create-quizzes-question-input create-quizz-color-question create-quizz-color-question${i}" placeholder="Cor de fundo da pergunta" required>
+        <p class="create-quizz-color-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        
+        <!--create-quizz-correct-answer-title-->
+        <p class="create-quizzes-question-title-correct-answer create-quizz-correct-answer-title">Resposta correta</p>
+        
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-correct-answer create-quizz-correct-answer${i}" placeholder="Resposta correta" required><!--create-quizz-correct-answer-->
+        <p class="create-quizz-correct-answer-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-correct-answer-url create-quizz-correct-answer-url${i}" placeholder="URL da imagem" required><!--create-quizz-correct-answer-url-->
+        <p class="create-quizz-correct-answer-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        
+        <!--create-quizz-incorrect-question1-title-->
+        <p class="create-quizzes-question-title-incorrect-answer create-quizz-incorrect-question-title">Respostas incorretas</p>
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer1 create-quizz-incorrect-answer1-${i}" placeholder="Resposta incorreta 1" required><!--create-quizz-incorrect-answer1-->
+        <p class="create-quizz-incorrect-answer1-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer1-url create-quizz-incorrect-answer1-${i}-url" placeholder="URL da imagem 1" required><!--create-quizz-incorrect-answer1-url-->
+        <p class="create-quizz-incorrect-answer1-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer2 create-quizz-incorrect-answer2-${i} mt-32" placeholder="Resposta incorreta 2" required><!--create-quizz-incorrect-answer2-->
+        <p class="create-quizz-incorrect-answer2-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer2-url create-quizz-incorrect-answer2-${i}-url" placeholder="URL da imagem 2" required><!--create-quizz-incorrect-answer2-url-->
+        <p class="create-quizz-incorrect-answer2-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer3 create-quizz-incorrect-answer3-${i} mt-32" placeholder="Resposta incorreta 3" required><!--create-quizz-incorrect-answer2-->
+        <p class="create-quizz-incorrect-answer3-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer3-url create-quizz-incorrect-answer3-${i}-url" placeholder="URL da imagem 3" required><!--create-quizz-incorrect-answer2-url-->      
+        <p class="create-quizz-incorrect-answer3-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+      </div><!--create-quizz-questions-hidden-->
+    </form>   
+    `;
+    } else {
+      createQuizzQuestionsContent.innerHTML += `
+    <!--create-quizz-question-->
+    <form class="create-quizz-question question${i}">
+      <div class="create-quizz-questions-edit">
+        <!--create-quizz-correct-question-title-->
+        <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
+
+        <!--create-icon-->
+        <img onclick="viewQuestion(this)" class="create-icon" src="./assets/Icons/create-icon.png">
+      </div><!--create-quizz-questions-edit-->
+
+      <div class="create-quizz-questions-edit-hidden">
+        <!--create-quizz-correct-question-title-->
+        <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
+        <!--create-quizz-text-question-->
+        <input type="text" class="create-quizzes-question-input create-quizz-text-question create-quizz-text-question${i}" placeholder="Texto da pergunta" required>
+        <p class="create-quizz-text-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        
+        <!--create-quizz-color-question-->
+        <input type="text" maxlength="7" onkeydown="maskColor(this)" onkeyup="maskColor(this)" onkeypress="maskColor(this)" onkeypress="maskColor(this)" class="create-quizzes-question-input create-quizz-color-question create-quizz-color-question${i}" placeholder="Cor de fundo da pergunta" required>
+        <p class="create-quizz-color-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        
+        <!--create-quizz-correct-answer-title-->
+        <p class="create-quizzes-question-title-correct-answer create-quizz-correct-answer-title">Resposta correta</p>
+        
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-correct-answer create-quizz-correct-answer${i}" placeholder="Resposta correta" required><!--create-quizz-correct-answer-->
+        <p class="create-quizz-correct-answer-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-correct-answer-url create-quizz-correct-answer-url${i}" placeholder="URL da imagem" required><!--create-quizz-correct-answer-url-->
+        <p class="create-quizz-correct-answer-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        
+        <!--create-quizz-incorrect-question1-title-->
+        <p class="create-quizzes-question-title-incorrect-answer create-quizz-incorrect-question-title">Respostas incorretas</p>
+        
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer1 create-quizz-incorrect-answer1-${i}" placeholder="Resposta incorreta 1" required><!--create-quizz-incorrect-answer1-->
+        <p class="create-quizz-incorrect-answer1-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer1-url create-quizz-incorrect-answer1-${i}-url" placeholder="URL da imagem 1" required><!--create-quizz-incorrect-answer1-url-->
+        <p class="create-quizz-incorrect-answer1-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer2 create-quizz-incorrect-answer2-${i} mt-32" placeholder="Resposta incorreta 2" required><!--create-quizz-incorrect-answer2-->
+        <p class="create-quizz-incorrect-answer2-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer2-url create-quizz-incorrect-answer2-${i}-url" placeholder="URL da imagem 2" required><!--create-quizz-incorrect-answer2-url-->
+        <p class="create-quizz-incorrect-answer2-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer3 create-quizz-incorrect-answer3-${i} mt-32" placeholder="Resposta incorreta 3" required><!--create-quizz-incorrect-answer2-->
+        <p class="create-quizz-incorrect-answer3-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer3-url create-quizz-incorrect-answer3-${i}-url" placeholder="URL da imagem 3" required><!--create-quizz-incorrect-answer2-url-->      
+        <p class="create-quizz-incorrect-answer3-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+      </div><!--create-quizz-questions-hidden-->
+    </form>   
+    `;
+    }
+  }
+
+  for (let w = 0; w < loadedQuizzData.data.questions.length; w++) {
+
+    document.querySelector(`.create-quizz-text-question${w + 1}`).value = loadedQuizzData.data.questions[w].title
+    document.querySelector(`.create-quizzes-question-input.create-quizz-color-question.create-quizz-color-question${w + 1}`).value = loadedQuizzData.data.questions[w].color
+    document.querySelector(`.create-quizzes-question-input.create-quizz-correct-answer.create-quizz-correct-answer${w + 1}`).value = loadedQuizzData.data.questions[w].answers[0].text
+    document.querySelector(`.create-quizzes-question-input.create-quizz-correct-answer-url.create-quizz-correct-answer-url${w + 1}`).value = loadedQuizzData.data.questions[w].answers[0].image
+    document.querySelector(`.create-quizzes-question-input.create-quizz-incorrect-answer1.create-quizz-incorrect-answer1-${w + 1}`).value = loadedQuizzData.data.questions[w].answers[1].text
+    document.querySelector(`.create-quizzes-question-input.create-quizz-incorrect-answer1-url.create-quizz-incorrect-answer1-${w + 1}-url`).value = loadedQuizzData.data.questions[w].answers[1].image
+
+    for (let z = 2; z < loadedQuizzData.data.questions[w].answers.length; z++) {
+
+      document.querySelector(`.create-quizzes-question-input.create-quizz-incorrect-answer${z}-url.create-quizz-incorrect-answer${z}-${w + 1}-url`).value = loadedQuizzData.data.questions[w].answers[z].image
+      document.querySelector(`.create-quizzes-question-input.create-quizz-incorrect-answer${z}.create-quizz-incorrect-answer${z}-${w + 1}.mt-32`).value = loadedQuizzData.data.questions[w].answers[z].text
+
+    }
+
+  }
+
+}
+
+
+
+
 
 function filterNull(arrayElement) {
   if (arrayElement != null) {
