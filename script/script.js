@@ -1098,8 +1098,7 @@ function sendCreatedQuizz(createdQuizzTitle, createdQuizzImage, createdQuizzArra
     nowLoading();
 
     promisseSendCreatedQuizz = axios.put(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${loadedQuizzData.data.id}`, createdQuizzUser, { headers: { "Secret-Key": userCreatedQuizzSecretKey[loadedQuizzData.data.id] } });
-    promisseSendCreatedQuizz.then(promisseSucessEditDeleteLocal);
-    promisseSendCreatedQuizz.then(storeUserEditQuizz)
+
     promisseSendCreatedQuizz.then(sendEditQuizzSucess);
     promisseSendCreatedQuizz.then(nowLoading)
     promisseSendCreatedQuizz.catch(sendEditQuizzFailure);
@@ -1135,53 +1134,9 @@ function sendCreatedQuizz(createdQuizzTitle, createdQuizzImage, createdQuizzArra
       alert("Quizz editado com sucesso, parabéns!");
     }
 
-    function promisseSucessEditDeleteLocal() {
-      const index = userCreatedQuizzId.indexOf(loadedQuizzData.data.id);
-
-      if (index > -1) {
-        userCreatedQuizzId.splice(index, 1);
-      }
-
-      delete userCreatedQuizzData[index];
-      delete userCreatedQuizzSecretKey[loadedQuizzData.data.id];
-
-
-      let userCreatedQuizzDataStringified;
-      let userCreatedQuizzIdStringified;
-      let userCreatedQuizzSecretKeyStringified;
-
-
-      userCreatedQuizzDataStringified = JSON.stringify(userCreatedQuizzData)
-      userCreatedQuizzIdStringified = JSON.stringify(userCreatedQuizzId)
-      userCreatedQuizzSecretKeyStringified = JSON.stringify(userCreatedQuizzSecretKey)
-
-      localStorage.setItem("data", userCreatedQuizzDataStringified)
-      localStorage.setItem("id", userCreatedQuizzIdStringified)
-      localStorage.setItem("UniqueKey", userCreatedQuizzSecretKeyStringified)
-
-    }
-
-    function storeUserEditQuizz(resposta) {
-      userCreatedQuizzData.push(resposta.data)
-      userCreatedQuizzId.push(resposta.data.id)
-      userCreatedQuizzSecretKey[resposta.data.id] = resposta.data.key
-
-      let userCreatedQuizzDataStringified;
-      let userCreatedQuizzIdStringified;
-      let userCreatedQuizzSecretKeyStringified;
-
-
-      userCreatedQuizzDataStringified = JSON.stringify(userCreatedQuizzData)
-      userCreatedQuizzIdStringified = JSON.stringify(userCreatedQuizzId)
-      userCreatedQuizzSecretKeyStringified = JSON.stringify(userCreatedQuizzSecretKey)
-
-      localStorage.setItem("data", userCreatedQuizzDataStringified)
-      localStorage.setItem("id", userCreatedQuizzIdStringified)
-      localStorage.setItem("UniqueKey", userCreatedQuizzSecretKeyStringified)
-    }
-
     function sendEditQuizzFailure(answer) {
-      failPut = answer
+      alert("deu erro!")
+      nowLoading()
     }
 
 
