@@ -1097,7 +1097,7 @@ function sendCreatedQuizz(createdQuizzTitle, createdQuizzImage, createdQuizzArra
 
     nowLoading();
 
-    promisseSendCreatedQuizz = axios.put(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${loadedQuizzData.data.id}`, createdQuizzUser, { headers: `Secret-Key": userCreatedQuizzSecretKey[loadedQuizzData.data.id]` });
+    promisseSendCreatedQuizz = axios.put(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${loadedQuizzData.data.id}`, createdQuizzUser, { headers: { "Secret-Key": userCreatedQuizzSecretKey[loadedQuizzData.data.id] } });
     promisseSendCreatedQuizz.then(promisseSucessEditDeleteLocal);
     promisseSendCreatedQuizz.then(storeUserEditQuizz)
     promisseSendCreatedQuizz.then(sendEditQuizzSucess);
