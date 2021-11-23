@@ -51,7 +51,7 @@ function listQuizzes(answerListQuizzes) {
     }
 
     quizzesListed.innerHTML += `
-    <div class="all-quizzes-quizz" onclick="getQuizzByID(${quizz.id})">
+    <div class="all-quizzes-quizz" onclick="getQuizzByID(${quizz.id})" data-identifier="quizz-card">
       <!--all-quizzes-quizz-bg-->
       <img class="all-quizzes-quizz-bg" src="${quizz.image}">
       <!--all-quizzes-quizz-degrade-->
@@ -1255,7 +1255,7 @@ function listCreatedUserQuizz(quizzData) {
 
 
         container.innerHTML += `
-          <div class="all-quizzes-quizz">
+          <div class="all-quizzes-quizz" data-identifier="quizz-card">
           <div class="user-quizz-options">
           <img onclick="editQuizz(${userCreatedQuizzData[j].id})" class="create-icon" src="./assets/Icons/create-icon-white.png">
           <img onclick="deleteQuizz(${userCreatedQuizzData[j].id})" class="create-icon" src="./assets/Icons/DeleteIconWhite.png">

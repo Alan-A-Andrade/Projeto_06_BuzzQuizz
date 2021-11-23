@@ -36,17 +36,17 @@
           <p class="user-quizzes-create-title">Você não criou nenhum <br> quizz ainda :(</p>
 
           <!--user-quizz-create-button-->
-          <button class="user-quizzes-create-button" onclick="createQuizz()">Criar Quizz</button>
+          <button class="user-quizzes-create-button" onclick="createQuizz()" data-identifier="create-quizz">Criar Quizz</button>
         </div>
         <!--user-quizzes-none-->
 
-        <div class="user-quizzes-listed">
+        <div class="user-quizzes-listed" data-identifier="user-quizzes">
           <div class="user-quizzes-listed-header">
             <!--user-quizzes-listed-header-title-->
             <h2 class="user-quizzes-listed-header-title">Seus Quizzes</h2>
 
             <!--user-quizzes-listed-header-button-->
-            <button class="user-quizzes-listed-header-button" onclick="createQuizz()">+</button>
+            <button class="user-quizzes-listed-header-button" onclick="createQuizz()" data-identifier="create-quizz">+</button>
           </div>
           <!--user-quizzes-listed-header-->
 
@@ -85,7 +85,7 @@
       </section>
       <!--user-quizz-->
 
-      <section class="all-quizzes">
+      <section class="all-quizzes" data-identifier="general-quizzes">
         <!--all-quizzes-title-->
         <h2 class="all-quizzes-title">Todos os Quizzes</h2>
 
