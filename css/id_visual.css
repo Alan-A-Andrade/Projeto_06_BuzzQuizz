@@ -795,7 +795,7 @@ gap: 16px;
 
   padding-left: 20px;
   
-  background: #FFFFFF;
+
   border: 1px solid #D1D1D1;
   box-sizing: border-box;
   border-radius: 5px;
@@ -808,6 +808,12 @@ gap: 16px;
   line-height: 22px;
   color: #BABABA;
 
+}
+
+.set-levels article h2{
+  color: #EC362D;
+  font-size: 16px;
+  line-height: 19px;
 }
 
 .set-levels article textarea{
@@ -1098,6 +1104,11 @@ height: 1.45em;
   margin-bottom: 20px;
 }
 
+.failed-validation{
+  background-color: #FFE9E9;
+ 
+}
+
 @media only screen and (max-width: 1000px) {
 
   .container{
@@ -1114,18 +1125,35 @@ height: 1.45em;
     padding: 0px 15px 211px 15px;
   
   }
+
+  .quizz-conteiner{
+    width: 100vw;
+    gap: 12px;
+  }
   
   .question-card{
     width: 100%;
   
     display: flex;
     flex-wrap: wrap;
+
   
-    padding: 35px;
+    padding: 15px;
   
     align-items: flex-start;
-    justify-content: space-between;
-    gap: 20px;
+    justify-content: space-around;
+    gap: 12px;
+  }
+
+
+  .question-card h1 {
+    word-break: break-all;
+    width: 100%;
+  }
+
+  .question-card img{
+    object-fit: cover;
+    border-radius: 5px;
   }
 
   .banner-quizz h1, .question-title h1{
@@ -1133,9 +1161,23 @@ height: 1.45em;
     line-height: 22px;
   }
 
+  .answer-card {
+    width: 48%;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
   .answer-card h1{
     font-size: 13px;
   }
+
+  .answer-img-container{
+    width: 163px;
+    height: 113px;
+    border-radius: 5px;
+   
+    
+   }
 
   .img-text-box{
     display: flex;
@@ -1143,7 +1185,7 @@ height: 1.45em;
     width: 100%;
     align-items: center;
     justify-content: center;
-    gap:20px
+    gap:10px
   
   }
 
@@ -1451,4 +1493,11 @@ height: 1.45em;
   
     background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
   }
+
+  .user-quizzes-listed-all{
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
+
 }
