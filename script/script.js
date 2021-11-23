@@ -1098,21 +1098,52 @@ function sendCreatedQuizz(createdQuizzTitle, createdQuizzImage, createdQuizzArra
     nowLoading();
 
     promisseSendCreatedQuizz = axios.put(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${loadedQuizzData.data.id}`, createdQuizzUser, { headers: `Secret-Key": userCreatedQuizzSecretKey[loadedQuizzData.data.id]` });
-    promisseSendCreatedQuizz.then(sendEditQuizzFailure);
-    promisseSendCreatedQuizz.then(sendEditQuizzFailure)
-    promisseSendCreatedQuizz.then(sendEditQuizzFailure);
-    promisseSendCreatedQuizz.then(sendEditQuizzFailure)
+    promisseSendCreatedQuizz.then(promisseSucessEditDeleteLocal);
+    promisseSendCreatedQuizz.then(storeUserEditQuizz)
+    promisseSendCreatedQuizz.then(sendEditQuizzSucess);
+    promisseSendCreatedQuizz.then(nowLoading)
     promisseSendCreatedQuizz.catch(sendEditQuizzFailure);
 
+
+    function sendEditQuizzSucess(answerSendCreatedQuizz) {
+
+
+      let arrayQuizzCreated = answerSendCreatedQuizz.data;
+
+      let pageContainer = document.querySelector(".container");
+      pageContainer.innerHTML = "";
+      pageContainer.innerHTML = `
+      <!--created-quizz-success-title-->
+      <h2 class="created-quizz-success-title">Seu quizz está pronto!</h2>
+      <!--created-quizz-success-quizz-->
+      <div class="created-quizz-success-quizz">
+        <!--created-quizz-success-quizz-bg-->
+        <img class="created-quizz-success-quizz-bg" src="${arrayQuizzCreated.image}">
+        <!--created-quizz-success-quizz-degrade-->
+        <div class="created-quizz-success-quizz-degrade" onclick="getQuizzByID(${arrayQuizzCreated.id})"></div>
+        <!--created-quizz-success-quizz-title-->
+        <div class="created-quizz-success-quizz-title">
+          <p>${arrayQuizzCreated.title}</p>
+        </div>
+      </div>
+      <!--created-quizz-success-quizz-button-->
+      <button class="created-quizz-success-quizz-button" onclick="getQuizzByID(${arrayQuizzCreated.id})">Acessar Quizz</button>
+      <!--created-quizz-success-quizz-link-->
+      <a class="created-quizz-success-quizz-link" onclick="backHomePage()">Voltar pra home</a> 
+      `;
+
+      alert("Quizz editado com sucesso, parabéns!");
+    }
+
     function promisseSucessEditDeleteLocal() {
-      const index = userCreatedQuizzId.indexOf(quizzID);
+      const index = userCreatedQuizzId.indexOf(loadedQuizzData.data.id);
 
       if (index > -1) {
         userCreatedQuizzId.splice(index, 1);
       }
 
       delete userCreatedQuizzData[index];
-      delete userCreatedQuizzSecretKey[quizzID];
+      delete userCreatedQuizzSecretKey[loadedQuizzData.data.id];
 
 
       let userCreatedQuizzDataStringified;
