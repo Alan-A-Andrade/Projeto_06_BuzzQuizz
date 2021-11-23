@@ -69,28 +69,28 @@ function createQuizz() {
   let pageContainer = document.querySelector(".container");
   pageContainer.innerHTML = "";
   pageContainer.innerHTML = `
-  <section class="create-quizzes">
-    <!--create-quizzes-title-->
-    <h2 class="create-quizzes-title">Comece pelo começo</h2>
-    <!--create-quizzes-inputs-->
-    <form class="create-quizzes-inputs">
-      <!--create-quizzes-input-->
-      <input type="text" class="create-quizzes-input create-quizz-title" placeholder="Título do seu quizz" required>
-      <p class="create-quizz-title-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
-      <!--create-quizzes-input-->
-      <input type="url" class="create-quizzes-input create-quizz-url" placeholder="URL da imagem do seu quizz" required>
-      <p class="create-quizz-url-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
-      <!--create-quizzes-input-->      
-      <input type="number" min="0" class="create-quizzes-input create-quizz-questions" placeholder="Quantidade de perguntas do quizz" required>
-      <p class="create-quizz-questions-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
-      <!--create-quizzes-input-->
-      <input type="number" min="0" class="create-quizzes-input create-quizz-levels" placeholder="Quantidade de níveis do quizz" required>
-      <p class="create-quizz-levels-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
-    </form>
-    <!--create-quizzes-button-->
-    <button class="create-quizzes-button" onclick="createQuizzQuestions()">Prosseguir pra criar perguntas</button>
-  <section><!--create-quizzes-->
-  `;
+<section class="create-quizzes">
+  <!--create-quizzes-title-->
+  <h2 class="create-quizzes-title">Comece pelo começo</h2>
+  <!--create-quizzes-inputs-->
+  <form class="create-quizzes-inputs">
+    <!--create-quizzes-input-->
+    <input type="text" class="create-quizzes-input create-quizz-title" placeholder="Título do seu quizz" required>
+    <p class="create-quizz-title-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
+    <!--create-quizzes-input-->
+    <input type="url" class="create-quizzes-input create-quizz-url" placeholder="URL da imagem do seu quizz" required>
+    <p class="create-quizz-url-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
+    <!--create-quizzes-input-->      
+    <input type="number" min="0" class="create-quizzes-input create-quizz-questions" placeholder="Quantidade de perguntas do quizz" required>
+    <p class="create-quizz-questions-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
+    <!--create-quizzes-input-->
+    <input type="number" min="0" class="create-quizzes-input create-quizz-levels" placeholder="Quantidade de níveis do quizz" required>
+    <p class="create-quizz-levels-feedback invalid-feedback hidden"></p><!--invalid-feedback-->
+  </form>
+  <!--create-quizzes-button-->
+  <button class="create-quizzes-button" onclick="createQuizzQuestions()">Prosseguir pra criar perguntas</button>
+<section><!--create-quizzes-->
+`;
 }
 
 
@@ -244,122 +244,122 @@ function createQuizzQuestions() {
 
   pageContainer.innerHTML = "";
   pageContainer.innerHTML = `
-  <section class="create-quizzes">
-    <!--create-quizzes-title-->
-    <h2 class="create-quizzes-title">Crie suas perguntas</h2>
-    <div class="create-quizz-questions-content">
-    </div><!--create-quizz-questions-content-->
-    <!--create-quizzes-button-->
-    <button class="create-quizzes-button" onclick="createArrayQuizzQuestions()">Prosseguir pra criar níveis</button>
-  <section><!--create-quizzes-->
-  `;
+<section class="create-quizzes">
+  <!--create-quizzes-title-->
+  <h2 class="create-quizzes-title">Crie suas perguntas</h2>
+  <div class="create-quizz-questions-content">
+  </div><!--create-quizz-questions-content-->
+  <!--create-quizzes-button-->
+  <button class="create-quizzes-button" onclick="createArrayQuizzQuestions()">Prosseguir pra criar níveis</button>
+<section><!--create-quizzes-->
+`;
 
   const createQuizzQuestionsContent = document.querySelector(".create-quizz-questions-content");
   for (let i = 1; i <= questionsQuizzInput; i++) {
     if (i === 1) {
       createQuizzQuestionsContent.innerHTML += `
-      <!--create-quizz-question-->
-      <form class="create-quizz-question question${i}">
-        <div class="create-quizz-questions-edit create-quizz-questions-edit-hidden">
-          <!--create-quizz-correct-question-title-->
-          <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
-  
-          <!--create-icon-->
-          <img onclick="viewQuestion(this)" class="create-icon" src="./assets/Icons/create-icon.png">
-        </div><!--create-quizz-questions-edit-->
-        <div class="create-quizz-questions-edit-show">
-          <!--create-quizz-correct-question-title-->
-          <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
-          
-          <!--create-quizz-text-question-->
-          <input type="text" class="create-quizzes-question-input create-quizz-text-question create-quizz-text-question${i}" placeholder="Texto da pergunta" required>
-          <p class="create-quizz-text-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <!--create-quizz-color-question-->
-          <input type="text" maxlength="7" onkeydown="maskColor(this)" onkeyup="maskColor(this)" onkeypress="maskColor(this)" class="create-quizzes-question-input create-quizz-color-question create-quizz-color-question${i}" placeholder="Cor de fundo da pergunta" required>
-          <p class="create-quizz-color-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          
-          <!--create-quizz-correct-answer-title-->
-          <p class="create-quizzes-question-title-correct-answer create-quizz-correct-answer-title">Resposta correta</p>
-          
-          <!--create-quizzes-input-->
-          <input type="text" class="create-quizzes-question-input create-quizz-correct-answer create-quizz-correct-answer${i}" placeholder="Resposta correta" required><!--create-quizz-correct-answer-->
-          <p class="create-quizz-correct-answer-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <input type="url" class="create-quizzes-question-input create-quizz-correct-answer-url create-quizz-correct-answer-url${i}" placeholder="URL da imagem" required><!--create-quizz-correct-answer-url-->
-          <p class="create-quizz-correct-answer-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          
-          <!--create-quizz-incorrect-question1-title-->
-          <p class="create-quizzes-question-title-incorrect-answer create-quizz-incorrect-question-title">Respostas incorretas</p>
-          <!--create-quizzes-input-->
-          <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer1 create-quizz-incorrect-answer1-${i}" placeholder="Resposta incorreta 1" required><!--create-quizz-incorrect-answer1-->
-          <p class="create-quizz-incorrect-answer1-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer1-url create-quizz-incorrect-answer1-${i}-url" placeholder="URL da imagem 1" required><!--create-quizz-incorrect-answer1-url-->
-          <p class="create-quizz-incorrect-answer1-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <!--create-quizzes-input-->
-          <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer2 create-quizz-incorrect-answer2-${i} mt-32" placeholder="Resposta incorreta 2" required><!--create-quizz-incorrect-answer2-->
-          <p class="create-quizz-incorrect-answer2-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer2-url create-quizz-incorrect-answer2-${i}-url" placeholder="URL da imagem 2" required><!--create-quizz-incorrect-answer2-url-->
-          <p class="create-quizz-incorrect-answer2-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <!--create-quizzes-input-->
-          <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer3 create-quizz-incorrect-answer3-${i} mt-32" placeholder="Resposta incorreta 3" required><!--create-quizz-incorrect-answer2-->
-          <p class="create-quizz-incorrect-answer3-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer3-url create-quizz-incorrect-answer3-${i}-url" placeholder="URL da imagem 3" required><!--create-quizz-incorrect-answer2-url-->      
-          <p class="create-quizz-incorrect-answer3-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-        </div><!--create-quizz-questions-hidden-->
-      </form>   
-      `;
+    <!--create-quizz-question-->
+    <form class="create-quizz-question question${i}">
+      <div class="create-quizz-questions-edit create-quizz-questions-edit-hidden">
+        <!--create-quizz-correct-question-title-->
+        <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
+
+        <!--create-icon-->
+        <img onclick="viewQuestion(this)" class="create-icon" src="./assets/Icons/create-icon.png">
+      </div><!--create-quizz-questions-edit-->
+      <div class="create-quizz-questions-edit-show">
+        <!--create-quizz-correct-question-title-->
+        <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
+        
+        <!--create-quizz-text-question-->
+        <input type="text" class="create-quizzes-question-input create-quizz-text-question create-quizz-text-question${i}" placeholder="Texto da pergunta" required>
+        <p class="create-quizz-text-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <!--create-quizz-color-question-->
+        <input type="text" maxlength="7" onkeydown="maskColor(this)" onkeyup="maskColor(this)" onkeypress="maskColor(this)" class="create-quizzes-question-input create-quizz-color-question create-quizz-color-question${i}" placeholder="Cor de fundo da pergunta" required>
+        <p class="create-quizz-color-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        
+        <!--create-quizz-correct-answer-title-->
+        <p class="create-quizzes-question-title-correct-answer create-quizz-correct-answer-title">Resposta correta</p>
+        
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-correct-answer create-quizz-correct-answer${i}" placeholder="Resposta correta" required><!--create-quizz-correct-answer-->
+        <p class="create-quizz-correct-answer-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-correct-answer-url create-quizz-correct-answer-url${i}" placeholder="URL da imagem" required><!--create-quizz-correct-answer-url-->
+        <p class="create-quizz-correct-answer-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        
+        <!--create-quizz-incorrect-question1-title-->
+        <p class="create-quizzes-question-title-incorrect-answer create-quizz-incorrect-question-title">Respostas incorretas</p>
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer1 create-quizz-incorrect-answer1-${i}" placeholder="Resposta incorreta 1" required><!--create-quizz-incorrect-answer1-->
+        <p class="create-quizz-incorrect-answer1-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer1-url create-quizz-incorrect-answer1-${i}-url" placeholder="URL da imagem 1" required><!--create-quizz-incorrect-answer1-url-->
+        <p class="create-quizz-incorrect-answer1-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer2 create-quizz-incorrect-answer2-${i} mt-32" placeholder="Resposta incorreta 2" required><!--create-quizz-incorrect-answer2-->
+        <p class="create-quizz-incorrect-answer2-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer2-url create-quizz-incorrect-answer2-${i}-url" placeholder="URL da imagem 2" required><!--create-quizz-incorrect-answer2-url-->
+        <p class="create-quizz-incorrect-answer2-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer3 create-quizz-incorrect-answer3-${i} mt-32" placeholder="Resposta incorreta 3" required><!--create-quizz-incorrect-answer2-->
+        <p class="create-quizz-incorrect-answer3-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer3-url create-quizz-incorrect-answer3-${i}-url" placeholder="URL da imagem 3" required><!--create-quizz-incorrect-answer2-url-->      
+        <p class="create-quizz-incorrect-answer3-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+      </div><!--create-quizz-questions-hidden-->
+    </form>   
+    `;
     } else {
       createQuizzQuestionsContent.innerHTML += `
-      <!--create-quizz-question-->
-      <form class="create-quizz-question question${i}">
-        <div class="create-quizz-questions-edit">
-          <!--create-quizz-correct-question-title-->
-          <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
-  
-          <!--create-icon-->
-          <img onclick="viewQuestion(this)" class="create-icon" src="./assets/Icons/create-icon.png">
-        </div><!--create-quizz-questions-edit-->
-  
-        <div class="create-quizz-questions-edit-hidden">
-          <!--create-quizz-correct-question-title-->
-          <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
-          <!--create-quizz-text-question-->
-          <input type="text" class="create-quizzes-question-input create-quizz-text-question create-quizz-text-question${i}" placeholder="Texto da pergunta" required>
-          <p class="create-quizz-text-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          
-          <!--create-quizz-color-question-->
-          <input type="text" maxlength="7" onkeydown="maskColor(this)" onkeyup="maskColor(this)" onkeypress="maskColor(this)" onkeypress="maskColor(this)" class="create-quizzes-question-input create-quizz-color-question create-quizz-color-question${i}" placeholder="Cor de fundo da pergunta" required>
-          <p class="create-quizz-color-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          
-          <!--create-quizz-correct-answer-title-->
-          <p class="create-quizzes-question-title-correct-answer create-quizz-correct-answer-title">Resposta correta</p>
-          
-          <!--create-quizzes-input-->
-          <input type="text" class="create-quizzes-question-input create-quizz-correct-answer create-quizz-correct-answer${i}" placeholder="Resposta correta" required><!--create-quizz-correct-answer-->
-          <p class="create-quizz-correct-answer-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <input type="url" class="create-quizzes-question-input create-quizz-correct-answer-url create-quizz-correct-answer-url${i}" placeholder="URL da imagem" required><!--create-quizz-correct-answer-url-->
-          <p class="create-quizz-correct-answer-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          
-          <!--create-quizz-incorrect-question1-title-->
-          <p class="create-quizzes-question-title-incorrect-answer create-quizz-incorrect-question-title">Respostas incorretas</p>
-          
-          <!--create-quizzes-input-->
-          <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer1 create-quizz-incorrect-answer1-${i}" placeholder="Resposta incorreta 1" required><!--create-quizz-incorrect-answer1-->
-          <p class="create-quizz-incorrect-answer1-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer1-url create-quizz-incorrect-answer1-${i}-url" placeholder="URL da imagem 1" required><!--create-quizz-incorrect-answer1-url-->
-          <p class="create-quizz-incorrect-answer1-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <!--create-quizzes-input-->
-          <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer2 mt-32" placeholder="Resposta incorreta 2" required><!--create-quizz-incorrect-answer2-->
-          <p class="create-quizz-incorrect-answer2-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer2-url" placeholder="URL da imagem 2" required><!--create-quizz-incorrect-answer2-url-->
-          <p class="create-quizz-incorrect-answer2-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <!--create-quizzes-input-->
-          <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer3 mt-32" placeholder="Resposta incorreta 3" required><!--create-quizz-incorrect-answer2-->
-          <p class="create-quizz-incorrect-answer3-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-          <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer3-url" placeholder="URL da imagem 3" required><!--create-quizz-incorrect-answer2-url-->      
-          <p class="create-quizz-incorrect-answer3-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
-        </div><!--create-quizz-questions-hidden-->
-      </form>   
-      `;
+    <!--create-quizz-question-->
+    <form class="create-quizz-question question${i}">
+      <div class="create-quizz-questions-edit">
+        <!--create-quizz-correct-question-title-->
+        <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
+
+        <!--create-icon-->
+        <img onclick="viewQuestion(this)" class="create-icon" src="./assets/Icons/create-icon.png">
+      </div><!--create-quizz-questions-edit-->
+
+      <div class="create-quizz-questions-edit-hidden">
+        <!--create-quizz-correct-question-title-->
+        <p class="create-quizzes-question-title create-quizz-correct-question${i}-title">Pergunta ${i}</p>
+        <!--create-quizz-text-question-->
+        <input type="text" class="create-quizzes-question-input create-quizz-text-question create-quizz-text-question${i}" placeholder="Texto da pergunta" required>
+        <p class="create-quizz-text-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        
+        <!--create-quizz-color-question-->
+        <input type="text" maxlength="7" onkeydown="maskColor(this)" onkeyup="maskColor(this)" onkeypress="maskColor(this)" onkeypress="maskColor(this)" class="create-quizzes-question-input create-quizz-color-question create-quizz-color-question${i}" placeholder="Cor de fundo da pergunta" required>
+        <p class="create-quizz-color-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        
+        <!--create-quizz-correct-answer-title-->
+        <p class="create-quizzes-question-title-correct-answer create-quizz-correct-answer-title">Resposta correta</p>
+        
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-correct-answer create-quizz-correct-answer${i}" placeholder="Resposta correta" required><!--create-quizz-correct-answer-->
+        <p class="create-quizz-correct-answer-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-correct-answer-url create-quizz-correct-answer-url${i}" placeholder="URL da imagem" required><!--create-quizz-correct-answer-url-->
+        <p class="create-quizz-correct-answer-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        
+        <!--create-quizz-incorrect-question1-title-->
+        <p class="create-quizzes-question-title-incorrect-answer create-quizz-incorrect-question-title">Respostas incorretas</p>
+        
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer1 create-quizz-incorrect-answer1-${i}" placeholder="Resposta incorreta 1" required><!--create-quizz-incorrect-answer1-->
+        <p class="create-quizz-incorrect-answer1-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer1-url create-quizz-incorrect-answer1-${i}-url" placeholder="URL da imagem 1" required><!--create-quizz-incorrect-answer1-url-->
+        <p class="create-quizz-incorrect-answer1-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer2 create-quizz-incorrect-answer2-${i} mt-32" placeholder="Resposta incorreta 2" required><!--create-quizz-incorrect-answer2-->
+        <p class="create-quizz-incorrect-answer2-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer2-url create-quizz-incorrect-answer2-${i}-url" placeholder="URL da imagem 2" required><!--create-quizz-incorrect-answer2-url-->
+        <p class="create-quizz-incorrect-answer2-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <!--create-quizzes-input-->
+        <input type="text" class="create-quizzes-question-input create-quizz-incorrect-answer3 create-quizz-incorrect-answer3-${i} mt-32" placeholder="Resposta incorreta 3" required><!--create-quizz-incorrect-answer2-->
+        <p class="create-quizz-incorrect-answer3-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+        <input type="url" class="create-quizzes-question-input create-quizz-incorrect-answer3-url create-quizz-incorrect-answer3-${i}-url" placeholder="URL da imagem 3" required><!--create-quizz-incorrect-answer2-url-->      
+        <p class="create-quizz-incorrect-answer3-url-feedback${i} invalid-feedback2 hidden"></p><!--invalid-feedback2-->
+      </div><!--create-quizz-questions-hidden-->
+    </form>   
+    `;
     }
   }
 }
@@ -400,7 +400,6 @@ function validationURL(elementURL, elementURLFeedback) {
     let url = elementURL.value;
     let validURL = /^(ftp|http|https):\/\/[^ "]+$/.test(url);
 
-    let validURLlink = false;
     for (let i = 0; i < arrayAcceptableImageFormat.length; i++) {
       console.log(arrayAcceptableImageFormat[i]);
       console.log(elementURL.value.indexOf(arrayAcceptableImageFormat[i]));
@@ -600,7 +599,6 @@ function createArrayQuizzQuestions(numberQuestions) {
         incorrectAnswer1URLQuizzQuestionFeedback.classList.remove("hidden");
       }
 
-      console.log("Teste 1");
       return;
     }
 
@@ -632,13 +630,11 @@ function createArrayQuizzQuestions(numberQuestions) {
 
     //Text field " " validation
     if (questionForm.querySelector(".create-quizz-text-question").value.length < 20) {
-      console.log("Validação do texto");
       textQuizzQuestionFeedback.innerHTML = "";
       textQuizzQuestionFeedback.innerHTML = "Texto da Pergunta, deve ser no mínimo 20 caracteres!";
       textQuizzQuestion.classList.add("invalid-input");
       textQuizzQuestionFeedback.classList.remove("hidden");
 
-      console.log("Teste 2");
       return;
     }
     textQuizzQuestionFeedback.innerHTML = "";
@@ -654,7 +650,6 @@ function createArrayQuizzQuestions(numberQuestions) {
         colorQuizzQuestion.classList.add("invalid-input");
         colorQuizzQuestionFeedback.classList.remove("hidden");
 
-        console.log("Teste 3");
         return;
       } else {
         colorQuizzQuestionFeedback.innerHTML = "";
@@ -662,7 +657,6 @@ function createArrayQuizzQuestions(numberQuestions) {
         colorQuizzQuestion.classList.add("invalid-input");
         colorQuizzQuestionFeedback.classList.remove("hidden");
 
-        console.log("Teste 4");
         return;
       }
     }
@@ -771,24 +765,64 @@ function createArrayQuizzQuestions(numberQuestions) {
     }
 
     validationColorHex(colorQuizzQuestion, colorQuizzQuestionFeedback);
-    validationURL(correctAnswerURLQuizzQuestion, correctAnswerURLQuizzQuestionFeedback);
-    validationURL(incorrectAnswer1URLQuizzQuestion, incorrectAnswer1URLQuizzQuestionFeedback);
+    let colorInvalidHex = document.querySelector(`.create-quizzes-question-input.create-quizz-color-question.create-quizz-color-question${i}.invalid-input`);
+    if (colorInvalidHex !== null) {
+      return;
+    }
+
+    if (correctAnswerURLQuizzQuestion !== null) {
+      console.log("Teste 1 - função");
+      validationURL(correctAnswerURLQuizzQuestion, correctAnswerURLQuizzQuestionFeedback);
+      console.log(validURLlink);
+      let urlInvalidCorrectAnswer = document.querySelector(`.create-quizzes-question-input.create-quizz-correct-answer-url.create-quizz-correct-answer-url${i}.invalid-input`);
+      console.log(urlInvalidCorrectAnswer);
+      if (urlInvalidCorrectAnswer !== null) {
+        console.log("Teste 1");
+        return;
+      } else {
+        validationURL(correctAnswerURLQuizzQuestion, correctAnswerURLQuizzQuestionFeedback);
+      }
+    }
+
+    if (incorrectAnswer1URLQuizzQuestion !== null) {
+      console.log("Teste 2 - função");
+      validationURL(incorrectAnswer1URLQuizzQuestion, incorrectAnswer1URLQuizzQuestionFeedback);
+      console.log(validURLlink);
+      let urlInvalidIncorrectAnswer1 = document.querySelector(`.create-quizzes-question-input.create-quizz-incorrect-answer1-url.create-quizz-incorrect-answer1-${i}-url.invalid-input`);
+      console.log(urlInvalidIncorrectAnswer1);
+      if (urlInvalidIncorrectAnswer1 !== null) {
+        console.log("Teste 2");
+        return;
+      } else {
+        validationURL(incorrectAnswer1URLQuizzQuestion, incorrectAnswer1URLQuizzQuestionFeedback);
+      }
+    }
 
     if (incorrectAnswer2URLQuizzQuestion !== null) {
+      console.log("Teste 3 - função");
       validationURL(incorrectAnswer2URLQuizzQuestion, incorrectAnswer2URLQuizzQuestionFeedback);
-
-      if (validURLlink === false) {
-        validURLlink = true;
+      console.log(validURLlink);
+      let urlInvalidIncorrectAnswer2 = document.querySelector(`.create-quizzes-question-input.create-quizz-incorrect-answer2-url.create-quizz-incorrect-answer2-${i}-url.invalid-input`);
+      console.log(urlInvalidIncorrectAnswer2);
+      if (urlInvalidIncorrectAnswer2 !== null) {
+        console.log("Teste 3");
         return;
+      } else {
+        validationURL(incorrectAnswer2URLQuizzQuestion, incorrectAnswer2URLQuizzQuestionFeedback);
       }
     }
 
     if (incorrectAnswer3URLQuizzQuestion != null) {
+      console.log("Teste 4 - função");
       validationURL(incorrectAnswer3URLQuizzQuestion, incorrectAnswer3URLQuizzQuestionFeedback);
-
-      if (validURLlink === false) {
-        validURLlink = true;
+      console.log(validURLlink);
+      let urlInvalidIncorrectAnswer3 = document.querySelector(`.create-quizzes-question-input.create-quizz-incorrect-answer3-url.create-quizz-incorrect-answer3-${i}-url.invalid-input`);
+      console.log(urlInvalidIncorrectAnswer3);
+      if (urlInvalidIncorrectAnswer3 !== null) {
+        console.log("Teste 4");
         return;
+      } else {
+        validationURL(incorrectAnswer3URLQuizzQuestion, incorrectAnswer3URLQuizzQuestionFeedback);
       }
     }
 
